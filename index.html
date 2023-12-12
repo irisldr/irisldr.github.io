@@ -1,0 +1,888 @@
+<!doctype html>
+<html>
+<head>
+<title>Inverse Rendering of Indoor Scenes from Low Dynamic Range Images | CVPR 2024 Submission 3819 | Supplementary Material</title>
+<style>
+html {
+  background-color: #eee;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif;
+  /* font-size: 11pt; */
+  /* line-height: 1.2em; */
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 300;
+  text-align: left;
+  background-color: white;
+  color: #333;
+  /* width: 840px; */
+  width: 1080px;
+  margin: 0 auto;
+  padding: 18px 12px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  -webkit-font-smoothing: antialiased;
+}
+h1 {
+  /* text-align: center; */
+  text-align: left;
+}
+h1 {
+  font-size: 1.5em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+h2 {
+  font-size: 1.15em;
+  margin-top: 1.5em;
+  /* margin-bottom: 0; */
+}
+h2 span:last-child {
+  float: right;
+  font-weight: bold;
+  color: #333;
+  background-color: #ddd;
+  border-radius: 0.2em;
+  padding: 0 0.3em 0 0.35em;
+  font-size: 0.8em;
+  font-family: verdana;
+}
+p, ul {
+  /* margin-top: 0.6em;
+  margin-bottom: 1.1em; */
+}
+ul {
+  padding-left: 2em;
+}
+a {
+  text-decoration: underline; color: black;
+}
+a:hover {
+  text-decoration: underline; color: gray;
+}
+a.invert {
+  text-decoration: none; color: white; font-weight: bold;
+}
+a.invert:hover {
+  text-decoration: none; color: #ccc;
+}
+
+div.links {
+  text-align: center;
+  justify-content: space-around;
+  margin-top: 0.5em;
+  margin-bottom: 2.5em;
+  line-height: 2.5em;
+}
+div.links a {
+  text-decoration: none;
+}
+div.links a:hover {
+  text-decoration: none;
+}
+div.links span {
+  background-color: #444;
+  color: white;
+  font-weight: bold;
+  border-radius: 0.5em;
+  padding: 0.4em 1em 0.5em 1em;
+  margin: 0 0.2em;
+  white-space: nowrap;
+}
+div.links span:hover {
+  background-color: #777;
+}
+div.links img {
+  height: 1em;
+  vertical-align: -10%;
+  filter: brightness(0%) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(24deg) brightness(100%) contrast(100%);
+}
+
+/* wrap long lines */
+pre {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+  text-align: left;
+}
+pre {
+  border-left: 5px solid #eee;
+  padding-left: 5px;
+}
+@media only screen and (max-device-width: 480px) {
+  html { background-color: white; }
+  body { width: 97%; box-shadow: none; }
+  body {
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust:    100%;
+    -ms-text-size-adjust:     100%;
+  }
+  body { font-size: 1.25em; font-size: 2.1vw; line-height: 1.6em; line-height: 2.7vw; }
+}
+@media print {
+  html { background-color: white; }
+  body { width: 97%; box-shadow: none; }
+}
+
+button {
+  padding: 0.5em 0.75em;
+  margin: 0.4em 0.4em;
+  min-width: 18ch;
+  max-width: 18ch;
+  text-align: left;
+  background-color: #ddd;
+  color: #333;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+
+  @media screen and (-ms-high-contrast: active) {
+    border: 2px solid currentcolor;
+  }
+}
+
+button.on {
+  background-color: #333;
+  color: #bbb;
+}
+
+p.btncap {
+  margin: 0.4em 0.4em;
+  padding: 0 0.2em;
+  color: #333;
+  border-bottom: 2px solid #333;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 0.8em;
+}
+
+.center {
+  text-align: center;
+}
+.flex {
+  display: flex;
+}
+.desc {
+  margin: 1.5em 0.4em;
+}
+button {
+  display: block;
+}
+video {
+  display: none;
+  width: 640px;
+  height: auto;
+  margin: 0.4em;
+}
+video.on {
+  display: block;
+}
+img[id^="img"], img[id*="image"] {
+  display: none;
+  max-width: 640px;
+  max-height: 640px;
+  width: auto;
+  height: auto;
+  margin: 0.4em;
+}
+img.on {
+  display: block;
+}
+
+/*
+div.imgcontainer {
+  display: none;
+  width: 640px;
+  height: 640px;
+  margin: 0.4em;
+}
+div.on {
+  display: block;
+}
+
+div.imgcontainer img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+*/
+
+.authors {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+}
+
+.authors div {
+  /* width: 25ch; */
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.authors div p:first-child {
+  font-size: 1.1em;
+  margin-bottom: 0.5em;
+}
+
+.authors div p:last-child {
+  margin-top: 0.5em;
+  font-size: 0.95em;
+}
+
+.justify {
+  text-align: justify;
+}
+
+.shadow {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+em {
+  font-weight: bold;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  cursor: pointer;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+</style>
+<script>
+class ObjectHandler {
+  constructor(n_scenes, n_objects, scene_button_id, object_button_id, object_tag_id) {
+    this.n_scenes = n_scenes;
+    this.n_objects = n_objects;
+
+    this.scene_button_id = scene_button_id;
+    this.object_button_id = object_button_id;
+    this.object_tag_id = object_tag_id;
+  }
+
+  get subdir() {
+    throw new Error("subdir() getter must be implemented.")
+  }
+
+  get ext() {
+    throw new Error("ext() getter must be implemented.")
+  }
+
+  on_object_selected(o) {
+    // do nothing
+  }
+
+  on_object_deselected(o) {
+    // do nothing
+  }
+
+  for_each_object(fn) {
+    for (let i = 0; i < this.n_objects; i++) {
+      let o = document.getElementById(this.object_tag_id + i.toString());
+      fn(o);
+    }
+  }
+
+  get first_object() {
+    return document.getElementById(this.object_tag_id + "0");
+  }
+
+  select_object(j) {
+    for (let i = 0; i < this.n_objects; i++) {
+      let o = document.getElementById(this.object_tag_id + i.toString());
+      let b = document.getElementById(this.object_button_id + i.toString());
+      if (i == j) {
+        b.className = "on";
+        o.style.display = "block";
+        this.on_object_selected(o);
+      } else {
+        b.className = "";
+        o.style.display = "none";
+        this.on_object_deselected(o);
+      }
+    }
+  }
+
+  select_scene(j) {
+    let scene_name = document.getElementById(this.scene_button_id + j.toString()).value;
+    for (let i = 0; i < this.n_scenes; i++) {
+      document.getElementById(this.scene_button_id + i.toString()).className = (i == j ? "on" : "");
+    }
+    for (let i = 0; i < this.n_objects; i++) {
+      let image_name = document.getElementById(this.object_button_id + i.toString()).value;
+      let v = document.getElementById(this.object_tag_id + i.toString());
+      v.src = this.subdir + "/" + scene_name + "_" + image_name + "." + this.ext;
+    }
+  }
+
+  register() {
+    for (let i = 0; i < this.n_scenes; i++) {
+      document.getElementById(this.scene_button_id + i.toString()).addEventListener("click", function() { this.select_scene(i); }.bind(this, i));
+    }
+
+    for (let i = 0; i < this.n_objects; i++) {
+      document.getElementById(this.object_button_id + i.toString()).addEventListener("click", function() { this.select_object(i); }.bind(this, i));
+    }
+  }
+}
+
+class ObjectHandler3 {
+  constructor(n_scenes, n_methods, n_results, scene_button_id, method_button_id, result_button_id, object_tag_id) {
+    this.n_scenes = n_scenes;
+    this.n_methods = n_methods;
+    this.n_results = n_results;
+    this.n_objects = n_methods * n_results;
+    this.scene_button_id = scene_button_id;
+    this.method_button_id = method_button_id;
+    this.result_button_id = result_button_id;
+    this.object_tag_id = object_tag_id;
+  }
+
+  get subdir() {
+    throw new Error("subdir() getter must be implemented.")
+  }
+
+  get ext() {
+    throw new Error("ext() getter must be implemented.")
+  }
+
+  on_object_selected(o) {
+    // do nothing
+  }
+
+  on_object_deselected(o) {
+    // do nothing
+  }
+
+  for_each_object(fn) {
+    for (let mi = 0; mi < this.n_methods; mi++) {
+      for (let ri = 0; ri < this.n_results; ri++) {
+        let o = document.getElementById(this.object_tag_id + "_" + mi.toString() + "_" + ri.toString());
+        fn(o);
+      }
+    }
+  }
+
+  get first_object() {
+    return document.getElementById(this.object_tag_id + "_0_0");
+  }
+
+  select_object(method, result) {
+    for (let mi = 0; mi < this.n_methods; mi++) {
+      for (let ri = 0; ri < this.n_results; ri++) {
+        let o = document.getElementById(this.object_tag_id + "_" + mi.toString() + "_" + ri.toString());
+        if (method == mi && result == ri) {
+          o.style.display = "block";
+          this.on_object_selected(o);
+        } else {
+          o.style.display = "none";
+          this.on_object_deselected(o);
+        }
+      }
+    }
+  }
+
+  select_result(result) {
+    for (let ri = 0; ri < this.n_results; ri++) {
+      document.getElementById(this.result_button_id + ri.toString()).className = (ri == result ? "on" : "");
+    }
+    let method = 0;
+    for (let mi = 0; mi < this.n_methods; mi++) {
+      if (document.getElementById(this.method_button_id + mi.toString()).className == "on") {
+        method = mi;
+      }
+    }
+    this.select_object(method, result);
+  }
+
+  select_method(method) {
+    for (let mi = 0; mi < this.n_methods; mi++) {
+      document.getElementById(this.method_button_id + mi.toString()).className = (mi == method ? "on" : "");
+    }
+    let result = 0;
+    for (let ri = 0; ri < this.n_results; ri++) {
+      if (document.getElementById(this.result_button_id + ri.toString()).className == "on") {
+        result = ri;
+      }
+    }
+    this.select_object(method, result);
+  }
+
+  select_scene(scene) {
+    for (let si = 0; si < this.n_scenes; si++) {
+      document.getElementById(this.scene_button_id + si.toString()).className = (si == scene ? "on" : "");
+    }
+    let scene_name = document.getElementById(this.scene_button_id + scene.toString()).value;
+    for (let mi = 0; mi < this.n_methods; mi++) {
+      let method_name = document.getElementById(this.method_button_id + mi.toString()).value;
+      for (let ri = 0; ri < this.n_results; ri++) {
+        let result_name = document.getElementById(this.result_button_id + ri.toString()).value;
+        let o = document.getElementById(this.object_tag_id + "_" + mi.toString() + "_" + ri.toString());
+        o.src = this.subdir + "/" + scene_name + "/" + method_name + "/" + result_name + "." + this.ext;
+      }
+    }
+  }
+
+  register() {
+    for (let i = 0; i < this.n_scenes; i++) {
+      document.getElementById(this.scene_button_id + i.toString()).addEventListener("click", function() { this.select_scene(i); }.bind(this, i));
+    }
+
+    for (let i = 0; i < this.n_methods; i++) {
+      document.getElementById(this.method_button_id + i.toString()).addEventListener("click", function() { this.select_method(i); }.bind(this, i));
+    }
+
+    for (let i = 0; i < this.n_results; i++) {
+      document.getElementById(this.result_button_id + i.toString()).addEventListener("click", function() { this.select_result(i); }.bind(this, i));
+    }
+  }
+}
+
+let ImageHandlerMixin = (superclass) => class extends superclass {
+  get subdir() {
+    return "images";
+  }
+
+  get ext() {
+    return "png";
+  }
+};
+
+let VideoHandlerMixin = (superclass) => class extends superclass {
+  get subdir() {
+    return "videos";
+  }
+
+  get ext() {
+    return "mp4";
+  }
+
+  get paused() {
+    return this.first_object.paused;
+  }
+
+  sync_video(e) {
+    if (e === undefined) {
+      return;
+    }
+    this.for_each_object(function(o) {
+      if (o != e.currentTarget) {
+        o.currentTime = e.currentTarget.currentTime;
+      }
+    });
+  }
+
+  play_video(e) {
+    this.sync_video(e);
+    this.for_each_object(function(o) { o.play(); });
+  }
+
+  pause_video(e) {
+    this.for_each_object(function(o) { o.pause(); });
+    this.sync_video(e);
+  }
+
+  on_object_selected(o) {
+    o.addEventListener("play", this);
+    o.addEventListener("pause", this);
+    o.addEventListener("seeking", this);
+    o.addEventListener("seeked", this);
+    o.addEventListener("playing", this);
+  }
+
+  on_object_deselected(o) {
+    o.removeEventListener("play", this);
+    o.removeEventListener("pause", this);
+    o.removeEventListener("seeking", this);
+    o.removeEventListener("seeked", this);
+    o.removeEventListener("playing", this);
+  }
+
+  handleEvent(e) {
+    switch (e.type) {
+      case "play": this.play_video(e); break;
+      case "pause": this.pause_video(e); break;
+      case "seeking": this.sync_video(e); break;
+      case "seeked": this.sync_video(e); break;
+      case "playing": this.sync_video(e); break;
+    }
+  }
+
+  select_scene(j) {
+    let autoplay = !this.paused;
+    super.select_scene(j)
+    if (autoplay) {
+      this.play_video();
+    }
+  }
+
+  register() {
+    super.register();
+    this.for_each_object(function(o) { o.muted = true; });
+  }
+};
+
+class ImageHandler extends ImageHandlerMixin(ObjectHandler) {
+}
+
+class VideoHandler extends VideoHandlerMixin(ObjectHandler) {
+}
+
+class ImageHandler3 extends ImageHandlerMixin(ObjectHandler3) {
+}
+
+class VideoHandler3 extends VideoHandlerMixin(ObjectHandler3) {
+}
+
+window.onload = function() {
+  intrinsics_handler = new VideoHandler3(6, 3, 6, "intrinsics_scene", "intrinsics_method", "intrinsics_result", "intrinsics");
+  intrinsics_handler.register();
+  try {
+    intrinsics_handler.play_video();
+  } catch (e) {
+  }
+
+  applications_handler = new VideoHandler3(6, 3, 2, "applications_scene", "applications_method", "applications_result", "applications");
+  applications_handler.register();
+  try {
+    applications_handler.play_video();
+  } catch (e) {
+  }
+
+  moving_light_handler = new VideoHandler3(3, 3, 1, "moving_light_scene", "moving_light_method", "moving_light_result", "moving_light");
+  moving_light_handler.register();
+  try {
+    moving_light_handler.play_video();
+  } catch (e) {
+  }
+
+  intrinsics_images_handler = new ImageHandler3(6, 7, 5, "intrinsics_images_scene", "intrinsics_images_method", "intrinsics_images_result", "intrinsics_images");
+  intrinsics_images_handler.register();
+};
+</script>
+</head>
+<body>
+<h1 class="center" id="top">Inverse Rendering of Indoor Scenes from Low Dynamic Range Images</h1>
+<h2 class="center">CVPR 2024 Submission 3819</h2>
+<h2 class="center">Supplementary Material</h2>
+
+<h2>Table of Contents</h2>
+<div>
+  <ul>
+    <li><a href="supp.pdf"><b>Link to Supplementary Document (PDF)</b></a></li>
+    <li><a href="#intrinsics">Material and Lighting Estimation Comparisons</a></li>
+    <li><a href="#intrinsics_images">Additional Material and Lighting Estimation Comparisons on Held-out View</a></li>
+    <li><a href="#applications">Relighting and Object Insertion Comparisons</a></li>
+    <li><a href="#moving_light">Comparisons with Moving Light Source</a></li>
+  </ul>
+</div>
+
+<h2 id="intrinsics">
+  Material and Lighting Estimation Comparisons
+  <span><a href="#top">&uarr;</a></span>
+</h2>
+<div class="flex">
+  <div>
+    <div class="flex">
+      <div>
+        <p class="btncap">Synthetic Scenes</p>
+        <button id="intrinsics_scene0" value="synthetic_kitchen" class="on">Kitchen</button>
+        <button id="intrinsics_scene1" value="synthetic_livingroom">Living Room</button>
+        <button id="intrinsics_scene2" value="synthetic_bedroom">Bedroom</button>
+        <button id="intrinsics_scene3" value="synthetic_bathroom">Bathroom</button>
+        <p class="btncap">Captured Scenes</p>
+        <button id="intrinsics_scene4" value="real_conferenceroom">Conference Room</button>
+        <button id="intrinsics_scene5" value="real_classroom">Classroom</button>
+      </div>
+      <div>
+        <p class="btncap">Methods</p>
+        <button id="intrinsics_method0" value="ours" class="on">Ours</button>
+        <button id="intrinsics_method2" value="fipt_ldr">FIPT-LDR*</button>
+        <p class="btncap"></p>
+        <button id="intrinsics_method1" value="fipt_hdr">FIPT-HDR</button>
+      </div>
+      <div>
+        <p class="btncap">Results</p>
+        <button id="intrinsics_result0" value="intrinsics/kd" class="on">Diffuse Reflectance <b>k</b><sub><i>d</i></sub></button>
+        <button id="intrinsics_result1" value="intrinsics/a_prime">Material Reflectance <b>a</b>&prime;</button>
+        <button id="intrinsics_result2" value="intrinsics/roughness">Roughness <i>&sigma;</i></button>
+        <button id="intrinsics_result3" value="intrinsics/metallic">Metallic <i>m</i></button>
+        <button id="intrinsics_result4" value="intrinsics/emission">Tonemapped HDR Emission <b>L</b><sub><i>e</i></sub></button>
+        <button id="intrinsics_result5" value="intrinsics/rgb_full">Rerendering <b>L</b></button>
+      </div>
+    </div>
+    <div class="desc">
+    </div>
+  </div>
+  <div>
+    <video id="intrinsics_0_0" controls loop class="on">
+      <source src="videos/synthetic_kitchen/ours/intrinsics/kd.mp4" type="video/mp4"/>
+    </video>
+    <video id="intrinsics_0_1" controls loop>
+      <source src="videos/synthetic_kitchen/ours/intrinsics/a_prime.mp4" type="video/mp4"/>
+    </video>
+    <video id="intrinsics_0_2" controls loop>
+      <source src="videos/synthetic_kitchen/ours/intrinsics/roughness.mp4" type="video/mp4"/>
+    </video>
+    <video id="intrinsics_0_3" controls loop>
+      <source src="videos/synthetic_kitchen/ours/intrinsics/metallic.mp4" type="video/mp4"/>
+    </video>
+    <video id="intrinsics_0_4" controls loop>
+      <source src="videos/synthetic_kitchen/ours/intrinsics/emission.mp4" type="video/mp4"/>
+    </video>
+    <video id="intrinsics_0_5" controls loop>
+      <source src="videos/synthetic_kitchen/ours/intrinsics/rgb_full.mp4" type="video/mp4"/>
+    </video>
+    <video id="intrinsics_1_0" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_hdr/intrinsics/kd.mp4" type="video/mp4"/>
+    </video>
+    <video id="intrinsics_1_1" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_hdr/intrinsics/a_prime.mp4" type="video/mp4"/>
+    </video>
+    <video id="intrinsics_1_2" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_hdr/intrinsics/roughness.mp4" type="video/mp4"/>
+    </video>
+    <video id="intrinsics_1_3" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_hdr/intrinsics/metallic.mp4" type="video/mp4"/>
+    </video>
+    <video id="intrinsics_1_4" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_hdr/intrinsics/emission.mp4" type="video/mp4"/>
+    </video>
+    <video id="intrinsics_1_5" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_hdr/intrinsics/rgb_full.mp4" type="video/mp4"/>
+    </video>
+    <video id="intrinsics_2_0" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_ldr/intrinsics/kd.mp4" type="video/mp4"/>
+    </video>
+    <video id="intrinsics_2_1" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_ldr/intrinsics/a_prime.mp4" type="video/mp4"/>
+    </video>
+    <video id="intrinsics_2_2" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_ldr/intrinsics/roughness.mp4" type="video/mp4"/>
+    </video>
+    <video id="intrinsics_2_3" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_ldr/intrinsics/metallic.mp4" type="video/mp4"/>
+    </video>
+    <video id="intrinsics_2_4" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_ldr/intrinsics/emission.mp4" type="video/mp4"/>
+    </video>
+    <video id="intrinsics_2_5" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_ldr/intrinsics/rgb_full.mp4" type="video/mp4"/>
+    </video>
+  </div>
+</div>
+
+<h2 id="intrinsics_images">
+  Additional Material and Lighting Estimation Comparisons on Held-out View
+  <span><a href="#top">&uarr;</a></span>
+</h2>
+<div class="flex">
+  <div>
+    <div class="flex">
+      <div>
+        <p class="btncap">Synthetic Scenes</p>
+        <button id="intrinsics_images_scene0" value="synthetic_kitchen" class="on">Kitchen</button>
+        <button id="intrinsics_images_scene1" value="synthetic_livingroom">Living Room</button>
+        <button id="intrinsics_images_scene2" value="synthetic_bedroom">Bedroom</button>
+        <button id="intrinsics_images_scene3" value="synthetic_bathroom">Bathroom</button>
+        <p class="btncap">Captured Scenes</p>
+        <button id="intrinsics_images_scene4" value="real_conferenceroom">Conference Room</button>
+        <button id="intrinsics_images_scene5" value="real_classroom">Classroom</button>
+      </div>
+      <div>
+        <p class="btncap">Methods</p>
+        <button id="intrinsics_images_method0" value="ours" class="on">Ours</button>
+        <button id="intrinsics_images_method2" value="fipt_ldr">FIPT-LDR*</button>
+        <button id="intrinsics_images_method3" value="neilf">NeILF</button>
+        <button id="intrinsics_images_method4" value="i2_sdf">I<sup>2</sup>-SDF</button>
+        <button id="intrinsics_images_method5" value="li22">Li et al. 2022</button>
+        <p class="btncap"></p>
+        <button id="intrinsics_images_method1" value="fipt_hdr">FIPT-HDR</button>
+        <button id="intrinsics_images_method6" value="gt">Ground Truth</button>
+      </div>
+      <div>
+        <p class="btncap">Results</p>
+        <button id="intrinsics_images_result0" value="kd" class="on">Diffuse Reflectance <b>k</b><sub><i>d</i></sub></button>
+        <button id="intrinsics_images_result1" value="a_prime">Material Reflectance <b>a</b>&prime;</button>
+        <button id="intrinsics_images_result2" value="roughness">Roughness <i>&sigma;</i></button>
+        <button id="intrinsics_images_result3" value="emission">Tonemapped HDR Emission <b>L</b><sub><i>e</i></sub></button>
+        <button id="intrinsics_images_result4" value="rgb">Rerendering <b>L</b></button>
+      </div>
+    </div>
+    <div class="desc">
+    </div>
+  </div>
+  <div>
+    <img id="intrinsics_images_0_0" src="images/synthetic_kitchen/ours/kd.png" class="on"/>
+    <img id="intrinsics_images_0_1" src="images/synthetic_kitchen/ours/a_prime.png"/>
+    <img id="intrinsics_images_0_2" src="images/synthetic_kitchen/ours/roughness.png"/>
+    <img id="intrinsics_images_0_3" src="images/synthetic_kitchen/ours/emission.png"/>
+    <img id="intrinsics_images_0_4" src="images/synthetic_kitchen/ours/rgb.png"/>
+    <img id="intrinsics_images_1_0" src="images/synthetic_kitchen/fipt_hdr/kd.png"/>
+    <img id="intrinsics_images_1_1" src="images/synthetic_kitchen/fipt_hdr/a_prime.png"/>
+    <img id="intrinsics_images_1_2" src="images/synthetic_kitchen/fipt_hdr/roughness.png"/>
+    <img id="intrinsics_images_1_3" src="images/synthetic_kitchen/fipt_hdr/emission.png"/>
+    <img id="intrinsics_images_1_4" src="images/synthetic_kitchen/fipt_hdr/rgb.png"/>
+    <img id="intrinsics_images_2_0" src="images/synthetic_kitchen/fipt_ldr/kd.png"/>
+    <img id="intrinsics_images_2_1" src="images/synthetic_kitchen/fipt_ldr/a_prime.png"/>
+    <img id="intrinsics_images_2_2" src="images/synthetic_kitchen/fipt_ldr/roughness.png"/>
+    <img id="intrinsics_images_2_3" src="images/synthetic_kitchen/fipt_ldr/emission.png"/>
+    <img id="intrinsics_images_2_4" src="images/synthetic_kitchen/fipt_ldr/rgb.png"/>
+    <img id="intrinsics_images_3_0" src="images/synthetic_kitchen/neilf/kd.png"/>
+    <img id="intrinsics_images_3_1" src="images/synthetic_kitchen/neilf/a_prime.png"/>
+    <img id="intrinsics_images_3_2" src="images/synthetic_kitchen/neilf/roughness.png"/>
+    <img id="intrinsics_images_3_3" src="images/synthetic_kitchen/neilf/emission.png"/>
+    <img id="intrinsics_images_3_4" src="images/synthetic_kitchen/neilf/rgb.png"/>
+    <img id="intrinsics_images_4_0" src="images/synthetic_kitchen/i2_sdf/kd.png"/>
+    <img id="intrinsics_images_4_1" src="images/synthetic_kitchen/i2_sdf/a_prime.png"/>
+    <img id="intrinsics_images_4_2" src="images/synthetic_kitchen/i2_sdf/roughness.png"/>
+    <img id="intrinsics_images_4_3" src="images/synthetic_kitchen/i2_sdf/emission.png"/>
+    <img id="intrinsics_images_4_4" src="images/synthetic_kitchen/i2_sdf/rgb.png"/>
+    <img id="intrinsics_images_5_0" src="images/synthetic_kitchen/li22/kd.png"/>
+    <img id="intrinsics_images_5_1" src="images/synthetic_kitchen/li22/a_prime.png"/>
+    <img id="intrinsics_images_5_2" src="images/synthetic_kitchen/li22/roughness.png"/>
+    <img id="intrinsics_images_5_3" src="images/synthetic_kitchen/li22/emission.png"/>
+    <img id="intrinsics_images_5_4" src="images/synthetic_kitchen/li22/rgb.png"/>
+    <img id="intrinsics_images_6_0" src="images/synthetic_kitchen/gt/kd.png"/>
+    <img id="intrinsics_images_6_1" src="images/synthetic_kitchen/gt/a_prime.png"/>
+    <img id="intrinsics_images_6_2" src="images/synthetic_kitchen/gt/roughness.png"/>
+    <img id="intrinsics_images_6_3" src="images/synthetic_kitchen/gt/emission.png"/>
+    <img id="intrinsics_images_6_4" src="images/synthetic_kitchen/gt/rgb.png"/>
+  </div>
+</div>
+
+<h2 id="applications">
+  Relighting and Object Insertion Comparisons
+  <span><a href="#top">&uarr;</a></span>
+</h2>
+<div class="flex">
+  <div>
+    <div class="flex">
+      <div>
+        <p class="btncap">Synthetic Scenes</p>
+        <button id="applications_scene0" value="synthetic_kitchen" class="on">Kitchen</button>
+        <button id="applications_scene1" value="synthetic_livingroom">Living Room</button>
+        <button id="applications_scene2" value="synthetic_bedroom">Bedroom</button>
+        <button id="applications_scene3" value="synthetic_bathroom">Bathroom</button>
+        <p class="btncap">Captured Scenes</p>
+        <button id="applications_scene4" value="real_conferenceroom">Conference Room</button>
+        <button id="applications_scene5" value="real_classroom">Classroom</button>
+      </div>
+      <div>
+        <p class="btncap">Methods</p>
+        <button id="applications_method0" value="ours" class="on">Ours</button>
+        <button id="applications_method2" value="fipt_ldr">FIPT-LDR*</button>
+        <p class="btncap"></p>
+        <button id="applications_method1" value="fipt_hdr">FIPT-HDR</button>
+      </div>
+      <div>
+        <p class="btncap">Applications</p>
+        <button id="applications_result0" value="relight" class="on">Relighting &amp; Object Insertion</button>
+        <button id="applications_result1" value="intrinsics/rgb_full">Original Lighting</button>
+      </div>
+    </div>
+    <div class="desc">
+    </div>
+  </div>
+  <div>
+    <video id="applications_0_0" controls loop class="on">
+      <source src="videos/synthetic_kitchen/ours/relight.mp4" type="video/mp4"/>
+    </video>
+    <video id="applications_0_1" controls loop>
+      <source src="videos/synthetic_kitchen/ours/intrinsics/rgb_full.mp4" type="video/mp4"/>
+    </video>
+    <video id="applications_1_0" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_hdr/relight.mp4" type="video/mp4"/>
+    </video>
+    <video id="applications_1_1" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_hdr/intrinsics/rgb_full.mp4" type="video/mp4"/>
+    </video>
+    <video id="applications_2_0" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_ldr/relight.mp4" type="video/mp4"/>
+    </video>
+    <video id="applications_2_1" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_ldr/intrinsics/rgb_full.mp4" type="video/mp4"/>
+    </video>
+  </div>
+</div>
+
+<h2 id="moving_light">
+  Comparisons with Moving Light Source
+  <span><a href="#top">&uarr;</a></span>
+</h2>
+<div class="flex">
+  <div>
+    <div class="flex">
+      <div>
+        <p class="btncap">Synthetic Scenes</p>
+        <button id="moving_light_scene0" value="synthetic_bedroom" class="on">Bedroom</button>
+        <button id="moving_light_scene1" value="synthetic_bathroom">Bathroom</button>
+        <p class="btncap">Captured Scenes</p>
+        <button id="moving_light_scene2" value="real_classroom">Classroom</button>
+      </div>
+      <div>
+        <p class="btncap">Methods</p>
+        <button id="moving_light_method0" value="ours" class="on">Ours</button>
+        <button id="moving_light_method1" value="fipt_ldr">FIPT-LDR*</button>
+        <p class="btncap"></p>
+        <button id="moving_light_method2" value="fipt_hdr">FIPT-HDR</button>
+      </div>
+      <div>
+        <p class="btncap">Results</p>
+        <button id="moving_light_result0" value="move" class="on">Relighting with Moving Light</button>
+      </div>
+    </div>
+    <div class="desc">
+    </div>
+  </div>
+  <div>
+    <video id="moving_light_0_0" controls loop class="on">
+      <source src="videos/synthetic_bedroom/ours/move.mp4" type="video/mp4"/>
+    </video>
+    <video id="moving_light_1_0" controls loop>
+      <source src="videos/synthetic_bedroom/fipt_ldr/move.mp4" type="video/mp4"/>
+    </video>
+    <video id="moving_light_2_0" controls loop>
+      <source src="videos/synthetic_bedroom/fipt_hdr/move.mp4" type="video/mp4"/>
+    </video>
+  </div>
+</div>
+
+</body>
+</html>
+

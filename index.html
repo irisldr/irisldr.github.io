@@ -577,7 +577,7 @@ window.onload = function() {
   } catch (e) {
   }
 
-  applications_handler = new VideoHandler3(6, 3, 2, "applications_scene", "applications_method", "applications_result", "applications");
+  applications_handler = new VideoHandler3(6, 3, 4, "applications_scene", "applications_method", "applications_result", "applications");
   applications_handler.register();
   try {
     applications_handler.play_video();
@@ -806,14 +806,16 @@ window.onload = function() {
       <div>
         <p class="btncap">Methods</p>
         <button id="applications_method0" value="ours" class="on">Ours</button>
-        <button id="applications_method2" value="fipt_ldr">FIPT-LDR*</button>
+        <button id="applications_method1" value="fipt_ldr">FIPT-LDR*</button>
         <p class="btncap"></p>
-        <button id="applications_method1" value="fipt_hdr">FIPT-HDR</button>
+        <button id="applications_method2" value="fipt_hdr">FIPT-HDR</button>
       </div>
       <div>
         <p class="btncap">Applications</p>
-        <button id="applications_result0" value="relight" class="on">Relighting &amp; Object Insertion</button>
-        <button id="applications_result1" value="intrinsics/rgb_full">Original Lighting</button>
+        <button id="applications_result0" value="relight_0" class="on">Relighting 0</button>
+        <button id="applications_result1" value="relight_1">Relighting 1</button>
+        <button id="applications_result2" value="insert">Object Insertion</button>
+        <button id="applications_result3" value="intrinsics/rgb_full">Original Lighting</button>
       </div>
     </div>
     <div class="desc">
@@ -821,23 +823,42 @@ window.onload = function() {
   </div>
   <div>
     <video id="applications_0_0" controls loop class="on">
-      <source src="videos/synthetic_kitchen/ours/relight.mp4" type="video/mp4"/>
+      <source src="videos/synthetic_kitchen/ours/relight_0.mp4" type="video/mp4"/>
     </video>
     <video id="applications_0_1" controls loop>
+      <source src="videos/synthetic_kitchen/ours/relight_1.mp4" type="video/mp4"/>
+    </video>
+    <video id="applications_0_2" controls loop>
+      <source src="videos/synthetic_kitchen/ours/insert.mp4" type="video/mp4"/>
+    </video>
+    <video id="applications_0_3" controls loop>
       <source src="videos/synthetic_kitchen/ours/intrinsics/rgb_full.mp4" type="video/mp4"/>
     </video>
     <video id="applications_1_0" controls loop>
-      <source src="videos/synthetic_kitchen/fipt_hdr/relight.mp4" type="video/mp4"/>
+      <source src="videos/synthetic_kitchen/fipt_ldr/relight_0.mp4" type="video/mp4"/>
     </video>
     <video id="applications_1_1" controls loop>
-      <source src="videos/synthetic_kitchen/fipt_hdr/intrinsics/rgb_full.mp4" type="video/mp4"/>
+      <source src="videos/synthetic_kitchen/fipt_ldr/relight_1.mp4" type="video/mp4"/>
     </video>
-    <video id="applications_2_0" controls loop>
-      <source src="videos/synthetic_kitchen/fipt_ldr/relight.mp4" type="video/mp4"/>
+    <video id="applications_1_2" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_ldr/insert.mp4" type="video/mp4"/>
     </video>
-    <video id="applications_2_1" controls loop>
+    <video id="applications_1_3" controls loop>
       <source src="videos/synthetic_kitchen/fipt_ldr/intrinsics/rgb_full.mp4" type="video/mp4"/>
     </video>
+    <video id="applications_2_0" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_hdr/relight_0.mp4" type="video/mp4"/>
+    </video>
+    <video id="applications_2_1" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_hdr/relight_1.mp4" type="video/mp4"/>
+    </video>
+    <video id="applications_2_2" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_hdr/insert.mp4" type="video/mp4"/>
+    </video>
+    <video id="applications_2_3" controls loop>
+      <source src="videos/synthetic_kitchen/fipt_hdr/intrinsics/rgb_full.mp4" type="video/mp4"/>
+    </video>
+    
   </div>
 </div>
 

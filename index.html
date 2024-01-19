@@ -465,6 +465,9 @@
     } */
     
   </style>
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
     <script>
     class ObjectHandler {
       constructor(n_scenes, n_objects, scene_button_id, object_button_id, object_tag_id) {
@@ -1069,12 +1072,6 @@
             <span>Material & Lighting</span>
             </a>
         </span>
-        <!-- <span class="link-block">
-          <a href="#intrinsics_images"
-             class="external-link button is-normal is-rounded is-info is-light">
-            <span>Relighting</span>
-            </a>
-        </span> -->
         <span class="link-block">
           <a href="#applications"
              class="external-link button is-normal is-rounded is-danger is-light">
@@ -1088,6 +1085,13 @@
             </a>
         </span>
 
+        <span class="link-block">
+          <a href="#crf"
+             class="external-link button is-normal is-rounded is-info is-light">
+            <span>CRF estimation</span>
+            </a>
+        </span>
+
         
         <br/><br/>
         <h3 id="intrinsics" class="title is-4">
@@ -1096,10 +1100,11 @@
         </h3>
         <p>
           We use
-          <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT-HDR</a> as reference, which takes in HDR images as input.
-          <br/>
+          <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT-HDR</a> as reference, which takes in HDR images as input.<br/>
           Baseline FIPT-LDR* shares same architecture with <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT-HDR</a>,
-          but takes LDR images and estimated emission masks as input.
+          but takes LDR images and estimated emission masks as input.<br/>
+          The roughness <i>&sigma;</i> and metallic <i>m</i> are visualized with OPENCV MAGMA colormap (from left to right: 0~1): <img id="magma" src="images/figures/colorscale_magma.jpg"/><br/>
+          For the HDR emission <b>L</b><sub><i>e</i></sub> , we mask the non-emitter region in <font color="blue">blue</font>, and show tonemapped emission otherwise, such that it is not saturated and difference is visible.
         </p>
         <div class="column frame">
           <div class="content has-text-justified">
@@ -1211,7 +1216,9 @@
           <a target="_blank" rel="noopener noreferrer" href="https://jingsenzhu.github.io/i2-sdf/">I<sup>2</sup>-SDF</a>, 
           and <a target="_blank" rel="noopener noreferrer" href="https://github.com/ViLab-UCSD/IndoorLightEditing">Li et al. 2022</a>. <br/>
           We thank the authors of <a target="_blank" rel="noopener noreferrer" href="https://jingsenzhu.github.io/i2-sdf/">I<sup>2</sup>-SDF</a> and 
-          and <a target="_blank" rel="noopener noreferrer" href="https://github.com/ViLab-UCSD/IndoorLightEditing">Li et al. 2022</a> for providing the results. 
+          and <a target="_blank" rel="noopener noreferrer" href="https://github.com/ViLab-UCSD/IndoorLightEditing">Li et al. 2022</a> for providing the results. <br/>
+          The roughness <i>&sigma;</i> is visualized with OPENCV MAGMA colormap (from left to right: 0~1): <img id="magma" src="images/figures/colorscale_magma.jpg"/><br/>
+          For the HDR emission <b>L</b><sub><i>e</i></sub> , we mask the non-emitter region in <font color="blue">blue</font>, and show tonemapped emission otherwise, such that it is not saturated and difference is visible.
         </p>
         <div class="column frame">
           <div class="flex">
@@ -1442,21 +1449,26 @@
         
 
 
-        <!-- <br/><br/>
-        <h3 id="vidcmp_diversity" class="title is-4">
-          Diversity of texture
+        <br/><br/>
+        <h3 id="crf" class="title is-4">
+          Camera Response Function (CRF) Estimation
           <span><a href="#results">&uarr;</a></span>
         </h3>
         <div class="column frame">
           <div class="content has-text-justified">
             <p>
-              Our method can synthesize diverse patterns from the same set of images.
+              Given input images with varying exposure, IRIS estimates camera response function (CRF). We compare with 3 baselines:<br/>
+              - Constant Exposure: all input image are captured with same exposure level. <br/>
+              - Fixed CRF 1: fixed as mean curve of <a target="_blank" rel="noopener noreferrer" href="https://cave.cs.columbia.edu/repository/DoRF">empirical 201 CRFs</a> measured in real-world devices.<br/>
+              - Fixed CRF 2: fixed as simple function: \( g(x) = x^{1/2.2} \), which is used in <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT</a><br/>
+              <font color="blue">Blue curve</font>: ground truth, <font color="red">Red curve</font>: estimation
             </p>
           </div>
           <div class="content has-text-centered">
-            <img src="./static/images/diversity.jpg">
+            <img src="images/figures/crf.png">
+            <!-- <img src="images/figures/crf_table.png"> -->
           </div>
-        </div> -->
+        </div>
         
 
       </div>

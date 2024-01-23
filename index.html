@@ -28,14 +28,14 @@
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <!-- <link rel="stylesheet" href="./static/css/fontawesome.all.min.css"> -->
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./images/figures/eye.png">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <!-- <script defer src="./static/js/fontawesome.all.min.js"></script> -->
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
@@ -828,7 +828,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">👁️ IRIS: Inverse Rendering of Indoor Scenes <br/> from Low Dynamic Range Images</h1>
+          <h1 class="title is-1 publication-title">👁️ IRIS: <font style="color:#19297C;">I</font>nverse <font style="color:#19297C;">R</font>endering of <font style="color:#19297C;">I</font>ndoor <font style="color:#19297C;">S</font>cenes <br/> from Low Dynamic Range Images</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a target="_blank" rel="noopener noreferrer" href="https://zhihao-lin.github.io/">Zhi-Hao Lin</a><sup>1,2</sup>&nbsp</span>
@@ -931,8 +931,9 @@
       </video> -->
       <img src="images/figures/teaser.png">
       <h2 class="subtitle has-text-centered">
-        <span class="dnerf">IRIS</span> estimates accurate and physically-plausible material, lighting, and camera response function given a set of LDR images and scene geometry, 
-        <br/> enabling photorealistic and view-consistent relighting and object insertion.
+        <span class="dnerf">IRIS</span> 
+          estimates accurate material, lighting, and camera response function given a set of LDR images and scene geometry, 
+          enabling photorealistic and view-consistent relighting and object insertion.
       </h2>
     </div>
   </div>
@@ -1064,7 +1065,7 @@
         <!-- <div class="result">
           <button>Cross-category</button>
         </div> -->
-        
+        <p>Click and jump to:</p>
         
         <span class="link-block">
           <a href="#intrinsics"
@@ -1459,13 +1460,13 @@
             <p>
               Given input images with varying exposure, IRIS estimates camera response function (CRF). We compare with 3 baselines:<br/>
               <!-- - Constant Exposure: all input image are captured with same exposure level. <br/> -->
-              - Fixed CRF 1: fixed as mean curve of <a target="_blank" rel="noopener noreferrer" href="https://cave.cs.columbia.edu/repository/DoRF">empirical 201 CRFs</a> measured in real-world devices.<br/>
-              - Fixed CRF 2: fixed as simple function: \( g(x) = x^{1/2.2} \), which is used in <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT</a><br/>
+              - Mean CRF \(\bar{g}\): set CRF as constant mean curve of <a target="_blank" rel="noopener noreferrer" href="https://cave.cs.columbia.edu/repository/DoRF">empirical 201 CRFs</a> measured in real-world devices.<br/>
+              - Gamma \(1/2.2\): set CRF as simple function: \( g(x) = x^{1/2.2} \), which is used in <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT</a><br/>
               <font color="blue">Blue curve</font>: ground truth, <font color="red">Red curve</font>: estimation
             </p>
           </div>
           <div class="content has-text-centered">
-            <img src="images/figures/ crf_input.png">
+            <img src="images/figures/crf_input.png">
             <!-- <img src="images/figures/crf_table.png"> -->
           </div>
         </div>

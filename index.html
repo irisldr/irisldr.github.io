@@ -757,14 +757,14 @@
     }
 
     window.onload = function() {
-      intrinsics_handler = new VideoHandler3(6, 3, 6, "intrinsics_scene", "intrinsics_method", "intrinsics_result", "intrinsics");
+      intrinsics_handler = new VideoHandler3(7, 3, 6, "intrinsics_scene", "intrinsics_method", "intrinsics_result", "intrinsics");
       intrinsics_handler.register();
       try {
         intrinsics_handler.play_video();
       } catch (e) {
       }
     
-      applications_handler = new VideoHandler3(6, 3, 4, "applications_scene", "applications_method", "applications_result", "applications");
+      applications_handler = new VideoHandler3(7, 3, 4, "applications_scene", "applications_method", "applications_result", "applications");
       applications_handler.register();
       try {
         applications_handler.play_video();
@@ -778,7 +778,7 @@
       } catch (e) {
       }
     
-      intrinsics_images_handler = new ImageHandler3(6, 7, 5, "intrinsics_images_scene", "intrinsics_images_method", "intrinsics_images_result", "intrinsics_images");
+      intrinsics_images_handler = new ImageHandler3(4, 7, 5, "intrinsics_images_scene", "intrinsics_images_method", "intrinsics_images_result", "intrinsics_images");
       intrinsics_images_handler.register();
     };
     </script>
@@ -1034,23 +1034,6 @@
   </div>
 </section>
 
-<section class="section">
-  <div class="container is-max-desktop">
-
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Method</h2>
-        <img src="images/figures/framework.png">
-        <p>
-          Given multi-view posed LDR images and a surface mesh, our inverse rendering pipeline is divided into two main stages.
-          In the initialization stage, we initialize the BRDF, extract a surface light field, and estimate emitter geometry.
-          In the optimization stage, we first recover HDR radiance from the LDR input, then bake shading maps, and jointly optimize BRDF and CRF parameters.
-          These three steps are repeated until convergence.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section class="section">
   <div class="container is-max-desktop">
@@ -1072,6 +1055,12 @@
             </a>
         </span>
         <span class="link-block">
+          <a href="#intrinsics_images"
+             class="external-link button is-normal is-rounded is-info is-light">
+            <span>Ground Truth Comparisons</span>
+            </a>
+        </span>
+        <span class="link-block">
           <a href="#applications"
              class="external-link button is-normal is-rounded is-danger is-light">
             <span>Relighting & Insertion</span>
@@ -1084,24 +1073,16 @@
             </a>
         </span>
 
-        <span class="link-block">
-          <a href="#crf"
-             class="external-link button is-normal is-rounded is-info is-light">
-            <span>CRF estimation</span>
-            </a>
-        </span>
-
         
         <br/><br/>
         <h3 id="intrinsics" class="title is-4">
-          Material and Lighting Estimation Comparisons
+          Material and Lighting Qualitative Comparisons
           <span><a href="#results">&uarr;</a></span>
         </h3>
         <p>
           We use
-          <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT-HDR</a> as reference, which takes in HDR images as input.<br/>
-          Baseline FIPT-LDR* shares same architecture with <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT-HDR</a>,
-          but takes LDR images and estimated emission masks as input.<br/>
+          <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT(HDR)</a> as reference, which takes in HDR images as input.<br/>
+          Baseline FIPT*(LDR) takes LDR images and estimated emission masks as input.<br/>
           The roughness <i>&sigma;</i> and metallic <i>m</i> are visualized with OPENCV MAGMA colormap (from left to right: 0~1): <img id="magma" src="images/figures/colorscale_magma.jpg"/><br/>
           For the HDR emission <b>L</b><sub><i>e</i></sub> , we mask the non-emitter region in <font color="blue">blue</font>, and show tonemapped emission otherwise, such that it is not saturated and difference is visible.
         </p>
@@ -1111,30 +1092,31 @@
               <div>
                 <div class="flex">
                   <div class="result">
-                    <p class="btncap">Synthetic Scenes</p>
-                    <button id="intrinsics_scene0" value="synthetic_kitchen" class="on">Kitchen</button>
-                    <button id="intrinsics_scene1" value="synthetic_livingroom">Living Room</button>
-                    <button id="intrinsics_scene2" value="synthetic_bedroom">Bedroom</button>
-                    <button id="intrinsics_scene3" value="synthetic_bathroom">Bathroom</button>
-                    <p class="btncap">Captured Scenes</p>
-                    <button id="intrinsics_scene4" value="real_conferenceroom">Conference Room</button>
-                    <button id="intrinsics_scene5" value="real_classroom">Classroom</button>
+                    <p class="btncap">Real (FIPT)</p>
+                    <button id="intrinsics_scene0" value="real_conferenceroom" class="on">Conference Room</button>
+                    <button id="intrinsics_scene1" value="real_classroom">Classroom</button>
+                    <p class="btncap">Real (ScanNet++)</p>
+                    <button id="intrinsics_scene2" value="scannetpp_empty">Empty Room</button>
+                    <button id="intrinsics_scene3" value="scannetpp_lab">Lab 0</button>
+                    <button id="intrinsics_scene4" value="scannetpp_office3">Office</button>
+                    <button id="intrinsics_scene5" value="scannetpp_lab2">Lab 1</button>
+                    <button id="intrinsics_scene6" value="scannetpp_engine">Engine Room</button>
                   </div>
                   <div class="result">
-                    <p class="btncap">Methods</p>
+                    <p class="btncap">Methods (LDR input)</p>
                     <button id="intrinsics_method0" value="ours" class="on">Ours</button>
-                    <button id="intrinsics_method2" value="fipt_ldr">FIPT-LDR*</button>
-                    <p class="btncap"></p>
-                    <button id="intrinsics_method1" value="fipt_hdr">FIPT-HDR</button>
+                    <button id="intrinsics_method2" value="fipt_ldr">FIPT*</button>
+                    <p class="btncap">Methods (HDR input)</p>
+                    <button id="intrinsics_method1" value="fipt_hdr">FIPT</button>
                   </div>
                   <div class="result">
                     <p class="btncap">Results</p>
-                    <button id="intrinsics_result0" value="intrinsics/kd" class="on">Diffuse Reflectance <b>k</b><sub><i>d</i></sub></button>
+                    <button id="intrinsics_result0" value="intrinsics/kd">Diffuse Reflectance<b>k</b><sub><i>d</i></sub></button>
                     <button id="intrinsics_result1" value="intrinsics/a_prime">Material Reflectance <b>a</b>&prime;</button>
                     <button id="intrinsics_result2" value="intrinsics/roughness">Roughness <i>&sigma;</i></button>
                     <button id="intrinsics_result3" value="intrinsics/metallic">Metallic <i>m</i></button>
                     <button id="intrinsics_result4" value="intrinsics/emission">Tonemapped HDR Emission <b>L</b><sub><i>e</i></sub></button>
-                    <button id="intrinsics_result5" value="intrinsics/rgb_full">Rerendering <b>L</b></button>
+                    <button id="intrinsics_result5" value="intrinsics/rgb_full" class="on">Rerendering <b>L</b></button>
                   </div>
                 </div>
                 <!-- <div class="desc">
@@ -1144,59 +1126,59 @@
                 </div> -->
               </div>
               <div>
-                <video id="intrinsics_0_0" controls loop class="on">
-                  <source src="videos/synthetic_kitchen/ours/intrinsics/kd.mp4" type="video/mp4"/>
+                <video id="intrinsics_0_0" controls loop>
+                  <source src="videos/real_conferenceroom/ours/intrinsics/kd.mp4" type="video/mp4"/>
                 </video>
                 <video id="intrinsics_0_1" controls loop>
-                  <source src="videos/synthetic_kitchen/ours/intrinsics/a_prime.mp4" type="video/mp4"/>
+                  <source src="videos/real_conferenceroom/ours/intrinsics/a_prime.mp4" type="video/mp4"/>
                 </video>
                 <video id="intrinsics_0_2" controls loop>
-                  <source src="videos/synthetic_kitchen/ours/intrinsics/roughness.mp4" type="video/mp4"/>
+                  <source src="videos/real_conferenceroom/ours/intrinsics/roughness.mp4" type="video/mp4"/>
                 </video>
                 <video id="intrinsics_0_3" controls loop>
-                  <source src="videos/synthetic_kitchen/ours/intrinsics/metallic.mp4" type="video/mp4"/>
+                  <source src="videos/real_conferenceroom/ours/intrinsics/metallic.mp4" type="video/mp4"/>
                 </video>
                 <video id="intrinsics_0_4" controls loop>
-                  <source src="videos/synthetic_kitchen/ours/intrinsics/emission.mp4" type="video/mp4"/>
+                  <source src="videos/real_conferenceroom/ours/intrinsics/emission.mp4" type="video/mp4"/>
                 </video>
-                <video id="intrinsics_0_5" controls loop>
-                  <source src="videos/synthetic_kitchen/ours/intrinsics/rgb_full.mp4" type="video/mp4"/>
+                <video id="intrinsics_0_5" controls loop class="on">
+                  <source src="videos/real_conferenceroom/ours/intrinsics/rgb_full.mp4" type="video/mp4"/>
                 </video>
                 <video id="intrinsics_1_0" controls loop>
-                  <source src="videos/synthetic_kitchen/fipt_hdr/intrinsics/kd.mp4" type="video/mp4"/>
+                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/kd.mp4" type="video/mp4"/>
                 </video>
                 <video id="intrinsics_1_1" controls loop>
-                  <source src="videos/synthetic_kitchen/fipt_hdr/intrinsics/a_prime.mp4" type="video/mp4"/>
+                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/a_prime.mp4" type="video/mp4"/>
                 </video>
                 <video id="intrinsics_1_2" controls loop>
-                  <source src="videos/synthetic_kitchen/fipt_hdr/intrinsics/roughness.mp4" type="video/mp4"/>
+                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/roughness.mp4" type="video/mp4"/>
                 </video>
                 <video id="intrinsics_1_3" controls loop>
-                  <source src="videos/synthetic_kitchen/fipt_hdr/intrinsics/metallic.mp4" type="video/mp4"/>
+                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/metallic.mp4" type="video/mp4"/>
                 </video>
                 <video id="intrinsics_1_4" controls loop>
-                  <source src="videos/synthetic_kitchen/fipt_hdr/intrinsics/emission.mp4" type="video/mp4"/>
+                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/emission.mp4" type="video/mp4"/>
                 </video>
                 <video id="intrinsics_1_5" controls loop>
-                  <source src="videos/synthetic_kitchen/fipt_hdr/intrinsics/rgb_full.mp4" type="video/mp4"/>
+                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/rgb_full.mp4" type="video/mp4"/>
                 </video>
                 <video id="intrinsics_2_0" controls loop>
-                  <source src="videos/synthetic_kitchen/fipt_ldr/intrinsics/kd.mp4" type="video/mp4"/>
+                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/kd.mp4" type="video/mp4"/>
                 </video>
                 <video id="intrinsics_2_1" controls loop>
-                  <source src="videos/synthetic_kitchen/fipt_ldr/intrinsics/a_prime.mp4" type="video/mp4"/>
+                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/a_prime.mp4" type="video/mp4"/>
                 </video>
                 <video id="intrinsics_2_2" controls loop>
-                  <source src="videos/synthetic_kitchen/fipt_ldr/intrinsics/roughness.mp4" type="video/mp4"/>
+                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/roughness.mp4" type="video/mp4"/>
                 </video>
                 <video id="intrinsics_2_3" controls loop>
-                  <source src="videos/synthetic_kitchen/fipt_ldr/intrinsics/metallic.mp4" type="video/mp4"/>
+                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/metallic.mp4" type="video/mp4"/>
                 </video>
                 <video id="intrinsics_2_4" controls loop>
-                  <source src="videos/synthetic_kitchen/fipt_ldr/intrinsics/emission.mp4" type="video/mp4"/>
+                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/emission.mp4" type="video/mp4"/>
                 </video>
                 <video id="intrinsics_2_5" controls loop>
-                  <source src="videos/synthetic_kitchen/fipt_ldr/intrinsics/rgb_full.mp4" type="video/mp4"/>
+                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/rgb_full.mp4" type="video/mp4"/>
                 </video>
               </div>
             </div>
@@ -1206,11 +1188,11 @@
 
         <br/><br/>
         <h3 id="intrinsics_images" class="title is-4">
-          Additional Material and Lighting Estimation Comparisons
+          Material and Lighting Comparisons with Ground Truth
           <span><a href="#results">&uarr;</a></span>
         </h3>
         <p>
-          In addition to <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT-HDR</a> and FIPT-LDR*, 
+          In addition to <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT(HDR)</a> and FIPT*(LDR), 
           we also compare the material & lighting estimation with <a target="_blank" rel="noopener noreferrer" href="https://github.com/apple/ml-neilf">NeILF</a>,
           <a target="_blank" rel="noopener noreferrer" href="https://jingsenzhu.github.io/i2-sdf/">I<sup>2</sup>-SDF</a>, 
           and <a target="_blank" rel="noopener noreferrer" href="https://github.com/ViLab-UCSD/IndoorLightEditing">Li et al. 2022</a>. <br/>
@@ -1224,24 +1206,22 @@
             <div>
               <div class="flex">
                 <div class="result">
-                  <p class="btncap">Synthetic Scenes</p>
+                  <p class="btncap">Synthetic (FIPT)</p>
                   <button id="intrinsics_images_scene0" value="synthetic_kitchen" class="on">Kitchen</button>
                   <button id="intrinsics_images_scene1" value="synthetic_livingroom">Living Room</button>
                   <button id="intrinsics_images_scene2" value="synthetic_bedroom">Bedroom</button>
                   <button id="intrinsics_images_scene3" value="synthetic_bathroom">Bathroom</button>
-                  <p class="btncap">Captured Scenes</p>
-                  <button id="intrinsics_images_scene4" value="real_conferenceroom">Conference Room</button>
-                  <button id="intrinsics_images_scene5" value="real_classroom">Classroom</button>
+                  
                 </div>
                 <div class="wider_buttons result">
-                  <p class="btncap">Methods</p>
+                  <p class="btncap">Methods (LDR input)</p>
                   <button id="intrinsics_images_method0" value="ours" class="on">Ours</button>
-                  <button id="intrinsics_images_method2" value="fipt_ldr">FIPT-LDR*</button>
+                  <button id="intrinsics_images_method2" value="fipt_ldr">FIPT*</button>
                   <button id="intrinsics_images_method3" value="neilf">NeILF</button>
                   <button id="intrinsics_images_method4" value="i2_sdf">I<sup>2</sup>-SDF</button>
                   <button id="intrinsics_images_method5" value="li22">Li et al. 2022</button>
-                  <p class="btncap"></p>
-                  <button id="intrinsics_images_method1" value="fipt_hdr">FIPT-HDR</button>
+                  <p class="btncap">Methods (HDR input)</p>
+                  <button id="intrinsics_images_method1" value="fipt_hdr">FIPT</button>
                   <button id="intrinsics_images_method6" value="gt">Ground Truth</button>
                 </div>
                 <div class="wider_buttons result">
@@ -1307,31 +1287,30 @@
         </h3>
         <p>
           We use
-          <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT-HDR</a> as reference, which takes in HDR images as input.
-          <br/>
-          Baseline FIPT-LDR* shares same architecture with <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT-HDR</a>,
-          but takes LDR images and estimated emission masks as input.
+          <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT(HDR)</a> as reference, which takes in HDR images as input.<br/>
+          Baseline FIPT*(LDR) takes LDR images and estimated emission masks as input.<br/>
         </p>
         <div class="column frame">
           <div class="flex">
             <div>
               <div class="flex">
                 <div class="result">
-                  <p class="btncap">Synthetic Scenes</p>
-                  <button id="applications_scene0" value="synthetic_kitchen" class="on">Kitchen</button>
-                  <button id="applications_scene1" value="synthetic_livingroom">Living Room</button>
-                  <button id="applications_scene2" value="synthetic_bedroom">Bedroom</button>
-                  <button id="applications_scene3" value="synthetic_bathroom">Bathroom</button>
-                  <p class="btncap">Captured Scenes</p>
-                  <button id="applications_scene4" value="real_conferenceroom">Conference Room</button>
-                  <button id="applications_scene5" value="real_classroom">Classroom</button>
+                  <p class="btncap">Real (FIPT)</p>
+                  <button id="applications_scene0" value="real_conferenceroom" class="on">Conference Room</button>
+                  <button id="applications_scene1" value="real_classroom">Classroom</button>
+                  <p class="btncap">Real (ScanNet++)</p>
+                  <button id="applications_scene2" value="scannetpp_empty">Empty Room</button>
+                  <button id="applications_scene3" value="scannetpp_lab">Lab 0</button>
+                  <button id="applications_scene4" value="scannetpp_office3">Office</button>
+                  <button id="applications_scene5" value="scannetpp_lab2">Lab 1</button>
+                  <button id="applications_scene6" value="scannetpp_engine">Engine Room</button>
                 </div>
                 <div class="result">
-                  <p class="btncap">Methods</p>
+                  <p class="btncap">Methods (LDR input)</p>
                   <button id="applications_method0" value="ours" class="on">Ours</button>
-                  <button id="applications_method1" value="fipt_ldr">FIPT-LDR*</button>
-                  <p class="btncap"></p>
-                  <button id="applications_method2" value="fipt_hdr">FIPT-HDR</button>
+                  <button id="applications_method1" value="fipt_ldr">FIPT*</button>
+                  <p class="btncap">Methods (HDR input)</p>
+                  <button id="applications_method2" value="fipt_hdr">FIPT</button>
                 </div>
                 <div class="result">
                   <p class="btncap">Applications</p>
@@ -1349,40 +1328,40 @@
             </div>
             <div>
               <video id="applications_0_0" controls loop class="on">
-                <source src="videos/synthetic_kitchen/ours/relight_0.mp4" type="video/mp4"/>
+                <source src="videos/real_conferenceroom/ours/relight_0.mp4" type="video/mp4"/>
               </video>
               <video id="applications_0_1" controls loop>
-                <source src="videos/synthetic_kitchen/ours/relight_1.mp4" type="video/mp4"/>
+                <source src="videos/real_conferenceroom/ours/relight_1.mp4" type="video/mp4"/>
               </video>
               <video id="applications_0_2" controls loop>
-                <source src="videos/synthetic_kitchen/ours/insert.mp4" type="video/mp4"/>
+                <source src="videos/real_conferenceroom/ours/insert.mp4" type="video/mp4"/>
               </video>
               <video id="applications_0_3" controls loop>
-                <source src="videos/synthetic_kitchen/ours/intrinsics/rgb_full.mp4" type="video/mp4"/>
+                <source src="videos/real_conferenceroom/ours/intrinsics/rgb_full.mp4" type="video/mp4"/>
               </video>
               <video id="applications_1_0" controls loop>
-                <source src="videos/synthetic_kitchen/fipt_ldr/relight_0.mp4" type="video/mp4"/>
+                <source src="videos/real_conferenceroom/fipt_ldr/relight_0.mp4" type="video/mp4"/>
               </video>
               <video id="applications_1_1" controls loop>
-                <source src="videos/synthetic_kitchen/fipt_ldr/relight_1.mp4" type="video/mp4"/>
+                <source src="videos/real_conferenceroom/fipt_ldr/relight_1.mp4" type="video/mp4"/>
               </video>
               <video id="applications_1_2" controls loop>
-                <source src="videos/synthetic_kitchen/fipt_ldr/insert.mp4" type="video/mp4"/>
+                <source src="videos/real_conferenceroom/fipt_ldr/insert.mp4" type="video/mp4"/>
               </video>
               <video id="applications_1_3" controls loop>
-                <source src="videos/synthetic_kitchen/fipt_ldr/intrinsics/rgb_full.mp4" type="video/mp4"/>
+                <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/rgb_full.mp4" type="video/mp4"/>
               </video>
               <video id="applications_2_0" controls loop>
-                <source src="videos/synthetic_kitchen/fipt_hdr/relight_0.mp4" type="video/mp4"/>
+                <source src="videos/real_conferenceroom/fipt_hdr/relight_0.mp4" type="video/mp4"/>
               </video>
               <video id="applications_2_1" controls loop>
-                <source src="videos/synthetic_kitchen/fipt_hdr/relight_1.mp4" type="video/mp4"/>
+                <source src="videos/real_conferenceroom/fipt_hdr/relight_1.mp4" type="video/mp4"/>
               </video>
               <video id="applications_2_2" controls loop>
-                <source src="videos/synthetic_kitchen/fipt_hdr/insert.mp4" type="video/mp4"/>
+                <source src="videos/real_conferenceroom/fipt_hdr/insert.mp4" type="video/mp4"/>
               </video>
               <video id="applications_2_3" controls loop>
-                <source src="videos/synthetic_kitchen/fipt_hdr/intrinsics/rgb_full.mp4" type="video/mp4"/>
+                <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/rgb_full.mp4" type="video/mp4"/>
               </video>
             </div>
           </div>
@@ -1396,28 +1375,26 @@
         </h3>
         <p>
           We use
-          <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT-HDR</a> as reference, which takes in HDR images as input.
-          <br/>
-          Baseline FIPT-LDR* shares same architecture with <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT-HDR</a>,
-          but takes LDR images and estimated emission masks as input.
+          <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT(HDR)</a> as reference, which takes in HDR images as input.<br/>
+          Baseline FIPT*(LDR) takes LDR images and estimated emission masks as input.<br/>
         </p>
         <div class="column frame">
           <div class="flex">
             <div>
               <div class="flex">
                 <div class="result">
-                  <p class="btncap">Synthetic Scenes</p>
+                  <p class="btncap">Synthetic (FIPT)</p>
                   <button id="moving_light_scene0" value="synthetic_bedroom" class="on">Bedroom</button>
                   <button id="moving_light_scene1" value="synthetic_bathroom">Bathroom</button>
-                  <p class="btncap">Captured Scenes</p>
+                  <p class="btncap">Real (FIPT)</p>
                   <button id="moving_light_scene2" value="real_classroom">Classroom</button>
                 </div>
                 <div class="result">
-                  <p class="btncap">Methods</p>
+                  <p class="btncap">Methods (LDR input)</p>
                   <button id="moving_light_method0" value="ours" class="on">Ours</button>
-                  <button id="moving_light_method1" value="fipt_ldr">FIPT-LDR*</button>
-                  <p class="btncap"></p>
-                  <button id="moving_light_method2" value="fipt_hdr">FIPT-HDR</button>
+                  <button id="moving_light_method1" value="fipt_ldr">FIPT*</button>
+                  <p class="btncap">Methods (HDR input)</p>
+                  <button id="moving_light_method2" value="fipt_hdr">FIPT</button>
                 </div>
                 <div class="result">
                   <p class="btncap">Results</p>
@@ -1448,7 +1425,7 @@
         
 
 
-        <br/><br/>
+        <!-- <br/><br/>
         <h3 id="crf" class="title is-4">
           Camera Response Function (CRF) Estimation
           <span><a href="#results">&uarr;</a></span>
@@ -1457,7 +1434,6 @@
           <div class="content has-text-justified">
             <p>
               Given input images with varying exposure, IRIS estimates camera response function (CRF). We compare with 3 baselines:<br/>
-              <!-- - Constant Exposure: all input image are captured with same exposure level. <br/> -->
               - Mean CRF \(\bar{g}\): set CRF as constant mean curve of <a target="_blank" rel="noopener noreferrer" href="https://cave.cs.columbia.edu/repository/DoRF">empirical 201 CRFs</a> measured in real-world devices.<br/>
               - Gamma \(1/2.2\): set CRF as simple function: \( g(x) = x^{1/2.2} \), which is used in <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT</a><br/>
               <font color="blue">Blue curve</font>: ground truth, <font color="red">Red curve</font>: estimation
@@ -1465,15 +1441,33 @@
           </div>
           <div class="content has-text-centered">
             <img src="images/figures/crf_input.png">
-            <!-- <img src="images/figures/crf_table.png"> -->
           </div>
-        </div>
+        </div> -->
         
 
       </div>
     </div>
   </div>
 </section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method</h2>
+        <img src="images/figures/framework.png">
+        <p>
+          Given multi-view posed LDR images and a surface mesh, our inverse rendering pipeline is divided into two main stages.
+          In the initialization stage, we initialize the BRDF, extract a surface light field, and estimate emitter geometry.
+          In the optimization stage, we first recover HDR radiance from the LDR input, then bake shading maps, and jointly optimize BRDF and CRF parameters.
+          These three steps are repeated until convergence.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section class="section">
   <div class="container is-max-desktop">

@@ -7,21 +7,6 @@
   <meta name="keywords" content="Inverse Rendering, Indoor Scenes, Low Dynamic Range">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>IRIS: Inverse Rendering of Indoor Scenes from Low Dynamic Range Images</title>
-
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'G-PYVRSFMDRL');
-  </script> -->
-
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
 
@@ -757,24 +742,17 @@
     }
 
     window.onload = function() {
-      intrinsics_handler = new VideoHandler3(7, 3, 6, "intrinsics_scene", "intrinsics_method", "intrinsics_result", "intrinsics");
+      intrinsics_handler = new VideoHandler3(2, 3, 6, "intrinsics_scene", "intrinsics_method", "intrinsics_result", "intrinsics");
       intrinsics_handler.register();
       try {
         intrinsics_handler.play_video();
       } catch (e) {
       }
     
-      applications_handler = new VideoHandler3(7, 3, 4, "applications_scene", "applications_method", "applications_result", "applications");
+      applications_handler = new VideoHandler3(3, 3, 4, "applications_scene", "applications_method", "applications_result", "applications");
       applications_handler.register();
       try {
         applications_handler.play_video();
-      } catch (e) {
-      }
-    
-      moving_light_handler = new VideoHandler3(3, 3, 1, "moving_light_scene", "moving_light_method", "moving_light_result", "moving_light");
-      moving_light_handler.register();
-      try {
-        moving_light_handler.play_video();
       } catch (e) {
       }
     
@@ -834,7 +812,7 @@
           <h1 class="title is-1 publication-title">👁️ IRIS: <font style="color:#19297C;">I</font>nverse <font style="color:#19297C;">R</font>endering of <font style="color:#19297C;">I</font>ndoor <font style="color:#19297C;">S</font>cenes <br/> from Low Dynamic Range Images</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a target="_blank" rel="noopener noreferrer" href="https://zhihao-lin.github.io/">Zhi-Hao Lin</a><sup>1,2</sup>&nbsp</span>
+              <a target="_blank" rel="noopener noreferrer" href="https://zhihao-lin.github.io/">Chih-Hao Lin</a><sup>1,2</sup>&nbsp</span>
             <span class="author-block">
               <a target="_blank" rel="noopener noreferrer" href="https://jbhuang0604.github.io">Jia-Bin Huang</a><sup>1,3</sup>&nbsp</span>
             <span class="author-block">
@@ -854,8 +832,6 @@
               <a target="_blank" rel="noopener noreferrer" href="https://shenlong.web.illinois.edu/">Shenlong Wang</a><sup>2</sup>&nbsp</span>
             <span class="author-block">
               <a target="_blank" rel="noopener noreferrer" href="https://changilkim.com">Changil Kim</a><sup>1</sup>&nbsp</span>
-            
-            
           </div>
 
           <div class="is-size-5 publication-authors">
@@ -919,56 +895,7 @@
             </div>
 
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-bedroom">
-          <video class="car" poster="" id="bedroom" autoplay controls muted loop playsinline height="100%">
-            <source src="videos/teaser/bedroom.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        
-        <div class="item item-conferenceroom">
-          <video class="car" poster="" id="conferenceroom" autoplay controls muted loop playsinline height="100%">
-            <source src="videos/teaser/conferenceroom.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-
-        <div class="item item-bathroom">
-          <video class="car" poster="" id="bathroom" autoplay controls muted loop playsinline height="100%">
-            <source src="videos/teaser/bathroom.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        
-        <div class="item item-classroom">
-          <video class="car" poster="" id="classroom" autoplay controls muted loop playsinline height="100%">
-            <source src="videos/teaser/classroom.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-
-        <div class="item item-kitchen">
-          <video class="car" poster="" id="kitchen" autoplay controls muted loop playsinline height="100%">
-            <source src="videos/teaser/kitchen.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        
-        <div class="item item-livingroom">
-          <video class="car" poster="" id="livingroom" autoplay controls muted loop playsinline height="100%">
-            <source src="videos/teaser/livingroom.mp4"
-                    type="video/mp4">
-          </video>
         </div>
       </div>
     </div>
@@ -982,19 +909,16 @@
         <source src="./static/videos/teaser.mp4"
                 type="video/mp4">
       </video> -->
-      <img src="images/figures/teaser.png">
+      
       <h2 class="subtitle has-text-centered">
         <span class="dnerf">IRIS</span> 
-          estimates accurate material, lighting, and camera response function given a set of LDR images and scene geometry, 
-          enabling photorealistic and view-consistent relighting and object insertion.
+          estimates accurate material, lighting, and camera response function given a set of LDR images, 
+          <br/>enabling photorealistic and view-consistent relighting and object insertion.
       </h2>
+      <img src="images/figures/teaser.png">
     </div>
   </div>
 </section>
-
-
-
-
 
 <section class="section">
   <div class="container is-max-desktop">
@@ -1004,36 +928,20 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            While numerous 3D reconstruction and novel-view synthesis methods allow for photorealistic rendering of a scene from multi-view images easily captured with consumer cameras, 
-            they bake illumination in their representations and fall short of supporting advanced applications like material editing, relighting, and virtual object insertion.
-            The reconstruction of physically based material properties and lighting via inverse rendering promises to enable such applications.
-            However, most inverse rendering techniques require high dynamic range (HDR) images as input, a setting that is inaccessible to most users.
-            We present a method that recovers the physically based material properties and spatially-varying HDR lighting of a scene from multi-view, low-dynamic-range (LDR) images.
+            Inverse rendering seeks to recover 3D geometry, surface material, and lighting from captured images, enabling advanced applications such as novel-view synthesis, relighting, and virtual object insertion.
+            However, most existing techniques rely on high dynamic range (HDR) images as input, limiting accessibility for general users.
+            In response, we introduce IRIS, an inverse rendering framework that recovers the physically based material, spatially-varying HDR lighting, and camera response functions from multi-view, low-dynamic-range (LDR) images.
+            By eliminating the dependence on HDR input, we make inverse rendering technology more accessible.
           </p>
           <p>
-            We model the LDR image formation process in our inverse rendering pipeline and propose a novel optimization strategy for material, lighting, and a camera response model.
-            We evaluate our approach with synthetic and real scenes compared to the state-of-the-art inverse rendering methods that take either LDR or HDR input.
-            Our method outperforms existing methods taking LDR images as input, and allows for highly realistic relighting and object insertion.
+            We evaluate our approach on real-world and synthetic scenes and compare it with state-of-the-art methods. 
+            Our results show that IRIS effectively recovers HDR lighting, accurate material, and plausible camera response functions, supporting photorealistic relighting and object insertion.
           </p>
         </div>
       </div>
     </div>
-    <!--/ Abstract. -->
-
-    <!-- Paper video. -->
-    <!-- <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video</h2>
-        <div class="publication-video">
-          <iframe src=""
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div> -->
-    <!--/ Paper video. -->
   </div>
 </section>
-
 
 <section class="section">
   <div class="container is-max-desktop">
@@ -1047,143 +955,105 @@
           <button>Cross-category</button>
         </div> -->
         <p>Click and jump to:</p>
-        
         <span class="link-block">
-          <a href="#intrinsics"
-             class="external-link button is-normal is-rounded is-primary is-light">
-            <span>Material & Lighting</span>
+          <a href="#applications"
+             class="external-link button is-normal is-rounded is-danger is-light">
+            <span>Applications</span>
             </a>
         </span>
         <span class="link-block">
           <a href="#intrinsics_images"
-             class="external-link button is-normal is-rounded is-info is-light">
+             class="external-link button is-normal is-rounded is-warning is-light">
             <span>Ground Truth Comparisons</span>
             </a>
         </span>
         <span class="link-block">
-          <a href="#applications"
-             class="external-link button is-normal is-rounded is-danger is-light">
-            <span>Relighting & Insertion</span>
-            </a>
-        </span>
-        <span class="link-block">
-          <a href="#moving_light"
-             class="external-link button is-normal is-rounded is-warning is-light">
-            <span>Moving Light Source</span>
+          <a href="#intrinsics"
+             class="external-link button is-normal is-rounded is-primary is-light">
+            <span>Qualitative Comparisons</span>
             </a>
         </span>
 
-        
         <br/><br/>
-        <h3 id="intrinsics" class="title is-4">
-          Material and Lighting Qualitative Comparisons
+        <h3 id="applications" class="title is-4">
+          Relighting and Object Insertion Comparisons
           <span><a href="#results">&uarr;</a></span>
         </h3>
         <p>
-          We use
-          <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT(HDR)</a> as reference, which takes in HDR images as input.<br/>
-          Baseline FIPT*(LDR) takes LDR images and estimated emission masks as input.<br/>
-          The roughness <i>&sigma;</i> and metallic <i>m</i> are visualized with OPENCV MAGMA colormap (from left to right: 0~1): <img id="magma" src="images/figures/colorscale_magma.jpg"/><br/>
-          For the HDR emission <b>L</b><sub><i>e</i></sub> , we mask the non-emitter region in <font color="blue">blue</font>, and show tonemapped emission otherwise, such that it is not saturated and difference is visible.
+          Our videos show the new light sources are reflected by the specular surfaces (e.g. white board, mirror).<br/>
+          Baseline FIPT* takes LDR images and our estimated emission masks as input.<br/>
+          FIPT takes HDR as input and serves as reference. However, HDR images are not available in some of the real scenes data.<br/>
         </p>
         <div class="column frame">
-          <div class="content has-text-justified">
-            <div class="flex">
-              <div>
-                <div class="flex">
-                  <div class="result">
-                    <p class="btncap">Real (FIPT)</p>
-                    <button id="intrinsics_scene0" value="real_conferenceroom" class="on">Conference Room</button>
-                    <button id="intrinsics_scene1" value="real_classroom">Classroom</button>
-                    <p class="btncap">Real (ScanNet++)</p>
-                    <button id="intrinsics_scene2" value="scannetpp_empty">Empty Room</button>
-                    <button id="intrinsics_scene3" value="scannetpp_lab">Lab 0</button>
-                    <button id="intrinsics_scene4" value="scannetpp_office3">Office</button>
-                    <button id="intrinsics_scene5" value="scannetpp_lab2">Lab 1</button>
-                    <button id="intrinsics_scene6" value="scannetpp_engine">Engine Room</button>
-                  </div>
-                  <div class="result">
-                    <p class="btncap">Methods (LDR input)</p>
-                    <button id="intrinsics_method0" value="ours" class="on">Ours</button>
-                    <button id="intrinsics_method2" value="fipt_ldr">FIPT*</button>
-                    <p class="btncap">Methods (HDR input)</p>
-                    <button id="intrinsics_method1" value="fipt_hdr">FIPT</button>
-                  </div>
-                  <div class="result">
-                    <p class="btncap">Results</p>
-                    <button id="intrinsics_result0" value="intrinsics/kd">Diffuse Reflectance<b>k</b><sub><i>d</i></sub></button>
-                    <button id="intrinsics_result1" value="intrinsics/a_prime">Material Reflectance <b>a</b>&prime;</button>
-                    <button id="intrinsics_result2" value="intrinsics/roughness">Roughness <i>&sigma;</i></button>
-                    <button id="intrinsics_result3" value="intrinsics/metallic">Metallic <i>m</i></button>
-                    <button id="intrinsics_result4" value="intrinsics/emission">Tonemapped HDR Emission <b>L</b><sub><i>e</i></sub></button>
-                    <button id="intrinsics_result5" value="intrinsics/rgb_full" class="on">Rerendering <b>L</b></button>
-                  </div>
+          <div class="flex">
+            <div>
+              <div class="flex">
+                <div class="result">
+                  <p class="btncap">Real Scenes</p>
+                  <button id="applications_scene0" value="real_conferenceroom" class="on">Conference Room</button>
+                  <button id="applications_scene1" value="scannetpp_bathroom2">Bathroom</button>
+                  <button id="applications_scene2" value="scannetpp_room2">Bedroom</button>
                 </div>
-                <!-- <div class="desc">
-                  <p><b>Input Style and Input Images.</b> Select an input style, the input images are used to transfer texture to the target mesh.</p>
-                  <p><b>Meshes.</b> We demonstrate image-guided texture transfer to diverse meshes from selected input images.</p>
-                  <p><b>Baselines.</b> We compare our method with existing methods TEXTure [<a href="#reference">1</a>] and LatentPaint[<a href="#reference">2</a>], which can also synthesize textures for meshes given a few input images.</p>
-                </div> -->
+                <div class="result">
+                  <p class="btncap">Methods (LDR input)</p>
+                  <button id="applications_method0" value="ours" class="on">IRIS (Ours)</button>
+                  <button id="applications_method1" value="fipt_ldr">FIPT*</button>
+                  <p class="btncap">Methods (HDR input)</p>
+                  <button id="applications_method2" value="fipt_hdr">FIPT</button>
+                </div>
+                <div class="result">
+                  <p class="btncap">Applications</p>
+                  <button id="applications_result0" value="relight_0" class="on">Relighting 1</button>
+                  <button id="applications_result1" value="relight_1">Relighting 2</button>
+                  <button id="applications_result2" value="insert">Object Insertion</button>
+                  <button id="applications_result3" value="intrinsics/rgb_full">Original Lighting</button>
+                </div>
               </div>
-              <div>
-                <video id="intrinsics_0_0" controls loop>
-                  <source src="videos/real_conferenceroom/ours/intrinsics/kd.mp4" type="video/mp4"/>
-                </video>
-                <video id="intrinsics_0_1" controls loop>
-                  <source src="videos/real_conferenceroom/ours/intrinsics/a_prime.mp4" type="video/mp4"/>
-                </video>
-                <video id="intrinsics_0_2" controls loop>
-                  <source src="videos/real_conferenceroom/ours/intrinsics/roughness.mp4" type="video/mp4"/>
-                </video>
-                <video id="intrinsics_0_3" controls loop>
-                  <source src="videos/real_conferenceroom/ours/intrinsics/metallic.mp4" type="video/mp4"/>
-                </video>
-                <video id="intrinsics_0_4" controls loop>
-                  <source src="videos/real_conferenceroom/ours/intrinsics/emission.mp4" type="video/mp4"/>
-                </video>
-                <video id="intrinsics_0_5" controls loop class="on">
-                  <source src="videos/real_conferenceroom/ours/intrinsics/rgb_full.mp4" type="video/mp4"/>
-                </video>
-                <video id="intrinsics_1_0" controls loop>
-                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/kd.mp4" type="video/mp4"/>
-                </video>
-                <video id="intrinsics_1_1" controls loop>
-                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/a_prime.mp4" type="video/mp4"/>
-                </video>
-                <video id="intrinsics_1_2" controls loop>
-                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/roughness.mp4" type="video/mp4"/>
-                </video>
-                <video id="intrinsics_1_3" controls loop>
-                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/metallic.mp4" type="video/mp4"/>
-                </video>
-                <video id="intrinsics_1_4" controls loop>
-                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/emission.mp4" type="video/mp4"/>
-                </video>
-                <video id="intrinsics_1_5" controls loop>
-                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/rgb_full.mp4" type="video/mp4"/>
-                </video>
-                <video id="intrinsics_2_0" controls loop>
-                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/kd.mp4" type="video/mp4"/>
-                </video>
-                <video id="intrinsics_2_1" controls loop>
-                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/a_prime.mp4" type="video/mp4"/>
-                </video>
-                <video id="intrinsics_2_2" controls loop>
-                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/roughness.mp4" type="video/mp4"/>
-                </video>
-                <video id="intrinsics_2_3" controls loop>
-                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/metallic.mp4" type="video/mp4"/>
-                </video>
-                <video id="intrinsics_2_4" controls loop>
-                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/emission.mp4" type="video/mp4"/>
-                </video>
-                <video id="intrinsics_2_5" controls loop>
-                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/rgb_full.mp4" type="video/mp4"/>
-                </video>
-              </div>
+              <!-- <div class="desc">
+                <p><b>Input Style and Input Images.</b> Select an input style, the input images are used to transfer texture to the target mesh.</p>
+                <p><b>Meshes.</b> We demonstrate image-guided texture transfer to diverse meshes from selected input images.</p>
+                <p><b>Baselines.</b> We compare our method with existing methods TEXTure [<a href="#reference">1</a>] and LatentPaint[<a href="#reference">2</a>], which can also synthesize textures for meshes given a few input images.</p>
+              </div> -->
+            </div>
+            <div>
+              <video id="applications_0_0" controls loop class="on">
+                <source src="videos/real_conferenceroom/ours/relight_0.mp4" type="video/mp4"/>
+              </video>
+              <video id="applications_0_1" controls loop>
+                <source src="videos/real_conferenceroom/ours/relight_1.mp4" type="video/mp4"/>
+              </video>
+              <video id="applications_0_2" controls loop>
+                <source src="videos/real_conferenceroom/ours/insert.mp4" type="video/mp4"/>
+              </video>
+              <video id="applications_0_3" controls loop>
+                <source src="videos/real_conferenceroom/ours/intrinsics/rgb_full.mp4" type="video/mp4"/>
+              </video>
+              <video id="applications_1_0" controls loop>
+                <source src="videos/real_conferenceroom/fipt_ldr/relight_0.mp4" type="video/mp4"/>
+              </video>
+              <video id="applications_1_1" controls loop>
+                <source src="videos/real_conferenceroom/fipt_ldr/relight_1.mp4" type="video/mp4"/>
+              </video>
+              <video id="applications_1_2" controls loop>
+                <source src="videos/real_conferenceroom/fipt_ldr/insert.mp4" type="video/mp4"/>
+              </video>
+              <video id="applications_1_3" controls loop>
+                <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/rgb_full.mp4" type="video/mp4"/>
+              </video>
+              <video id="applications_2_0" controls loop>
+                <source src="videos/real_conferenceroom/fipt_hdr/relight_0.mp4" type="video/mp4"/>
+              </video>
+              <video id="applications_2_1" controls loop>
+                <source src="videos/real_conferenceroom/fipt_hdr/relight_1.mp4" type="video/mp4"/>
+              </video>
+              <video id="applications_2_2" controls loop>
+                <source src="videos/real_conferenceroom/fipt_hdr/insert.mp4" type="video/mp4"/>
+              </video>
+              <video id="applications_2_3" controls loop>
+                <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/rgb_full.mp4" type="video/mp4"/>
+              </video>
             </div>
           </div>
-
         </div>
 
         <br/><br/>
@@ -1192,21 +1062,22 @@
           <span><a href="#results">&uarr;</a></span>
         </h3>
         <p>
-          In addition to <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT(HDR)</a> and FIPT*(LDR), 
+          To evaluate the quality of inverse rendering, we compare IRIS with multiple baselines on synthetic scenes from FIPT, where ground truth material, geometry, and lighting are available. <br/>
+
+          <!-- In addition to <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT(HDR)</a> and FIPT*(LDR), 
           we also compare the material & lighting estimation with <a target="_blank" rel="noopener noreferrer" href="https://github.com/apple/ml-neilf">NeILF</a>,
           <a target="_blank" rel="noopener noreferrer" href="https://jingsenzhu.github.io/i2-sdf/">I<sup>2</sup>-SDF</a>, 
           and <a target="_blank" rel="noopener noreferrer" href="https://github.com/ViLab-UCSD/IndoorLightEditing">Li et al. 2022</a>. <br/>
           We thank the authors of <a target="_blank" rel="noopener noreferrer" href="https://jingsenzhu.github.io/i2-sdf/">I<sup>2</sup>-SDF</a> and 
-          and <a target="_blank" rel="noopener noreferrer" href="https://github.com/ViLab-UCSD/IndoorLightEditing">Li et al. 2022</a> for providing the results. <br/>
-          The roughness <i>&sigma;</i> is visualized with OPENCV MAGMA colormap (from left to right: 0~1): <img id="magma" src="images/figures/colorscale_magma.jpg"/><br/>
-          For the HDR emission <b>L</b><sub><i>e</i></sub> , we mask the non-emitter region in <font color="blue">blue</font>, and show tonemapped emission otherwise, such that it is not saturated and difference is visible.
+          and <a target="_blank" rel="noopener noreferrer" href="https://github.com/ViLab-UCSD/IndoorLightEditing">Li et al. 2022</a> for providing the results. <br/> -->
+
         </p>
         <div class="column frame">
           <div class="flex">
             <div>
               <div class="flex">
                 <div class="result">
-                  <p class="btncap">Synthetic (FIPT)</p>
+                  <p class="btncap">Synthetic Scenes</p>
                   <button id="intrinsics_images_scene0" value="synthetic_kitchen" class="on">Kitchen</button>
                   <button id="intrinsics_images_scene1" value="synthetic_livingroom">Living Room</button>
                   <button id="intrinsics_images_scene2" value="synthetic_bedroom">Bedroom</button>
@@ -1215,7 +1086,7 @@
                 </div>
                 <div class="wider_buttons result">
                   <p class="btncap">Methods (LDR input)</p>
-                  <button id="intrinsics_images_method0" value="ours" class="on">Ours</button>
+                  <button id="intrinsics_images_method0" value="ours" class="on">IRIS (Ours)</button>
                   <button id="intrinsics_images_method2" value="fipt_ldr">FIPT*</button>
                   <button id="intrinsics_images_method3" value="neilf">NeILF</button>
                   <button id="intrinsics_images_method4" value="i2_sdf">I<sup>2</sup>-SDF</button>
@@ -1277,174 +1148,116 @@
               <img id="intrinsics_images_6_4" src="images/synthetic_kitchen/gt/rgb.png"/>
             </div>
           </div>
-
         </div>
 
         <br/><br/>
-        <h3 id="applications" class="title is-4">
-          Relighting and Object Insertion Comparisons
+        <h3 id="intrinsics" class="title is-4">
+          Material and Lighting Qualitative Comparisons
           <span><a href="#results">&uarr;</a></span>
         </h3>
         <p>
-          We use
-          <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT(HDR)</a> as reference, which takes in HDR images as input.<br/>
-          Baseline FIPT*(LDR) takes LDR images and estimated emission masks as input.<br/>
+          Baseline FIPT* takes LDR images and our estimated emission masks as input.<br/>
+          FIPT takes HDR as input and serves as reference. However, HDR images are not available in some of the real scenes data.<br/>
         </p>
-        <div class="column frame">
-          <div class="flex">
-            <div>
-              <div class="flex">
-                <div class="result">
-                  <p class="btncap">Real (FIPT)</p>
-                  <button id="applications_scene0" value="real_conferenceroom" class="on">Conference Room</button>
-                  <button id="applications_scene1" value="real_classroom">Classroom</button>
-                  <p class="btncap">Real (ScanNet++)</p>
-                  <button id="applications_scene2" value="scannetpp_empty">Empty Room</button>
-                  <button id="applications_scene3" value="scannetpp_lab">Lab 0</button>
-                  <button id="applications_scene4" value="scannetpp_office3">Office</button>
-                  <button id="applications_scene5" value="scannetpp_lab2">Lab 1</button>
-                  <button id="applications_scene6" value="scannetpp_engine">Engine Room</button>
-                </div>
-                <div class="result">
-                  <p class="btncap">Methods (LDR input)</p>
-                  <button id="applications_method0" value="ours" class="on">Ours</button>
-                  <button id="applications_method1" value="fipt_ldr">FIPT*</button>
-                  <p class="btncap">Methods (HDR input)</p>
-                  <button id="applications_method2" value="fipt_hdr">FIPT</button>
-                </div>
-                <div class="result">
-                  <p class="btncap">Applications</p>
-                  <button id="applications_result0" value="relight_0" class="on">Relighting 0</button>
-                  <button id="applications_result1" value="relight_1">Relighting 1</button>
-                  <button id="applications_result2" value="insert">Object Insertion</button>
-                  <button id="applications_result3" value="intrinsics/rgb_full">Original Lighting</button>
-                </div>
-              </div>
-              <!-- <div class="desc">
-                <p><b>Input Style and Input Images.</b> Select an input style, the input images are used to transfer texture to the target mesh.</p>
-                <p><b>Meshes.</b> We demonstrate image-guided texture transfer to diverse meshes from selected input images.</p>
-                <p><b>Baselines.</b> We compare our method with existing methods TEXTure [<a href="#reference">1</a>] and LatentPaint[<a href="#reference">2</a>], which can also synthesize textures for meshes given a few input images.</p>
-              </div> -->
-            </div>
-            <div>
-              <video id="applications_0_0" controls loop class="on">
-                <source src="videos/real_conferenceroom/ours/relight_0.mp4" type="video/mp4"/>
-              </video>
-              <video id="applications_0_1" controls loop>
-                <source src="videos/real_conferenceroom/ours/relight_1.mp4" type="video/mp4"/>
-              </video>
-              <video id="applications_0_2" controls loop>
-                <source src="videos/real_conferenceroom/ours/insert.mp4" type="video/mp4"/>
-              </video>
-              <video id="applications_0_3" controls loop>
-                <source src="videos/real_conferenceroom/ours/intrinsics/rgb_full.mp4" type="video/mp4"/>
-              </video>
-              <video id="applications_1_0" controls loop>
-                <source src="videos/real_conferenceroom/fipt_ldr/relight_0.mp4" type="video/mp4"/>
-              </video>
-              <video id="applications_1_1" controls loop>
-                <source src="videos/real_conferenceroom/fipt_ldr/relight_1.mp4" type="video/mp4"/>
-              </video>
-              <video id="applications_1_2" controls loop>
-                <source src="videos/real_conferenceroom/fipt_ldr/insert.mp4" type="video/mp4"/>
-              </video>
-              <video id="applications_1_3" controls loop>
-                <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/rgb_full.mp4" type="video/mp4"/>
-              </video>
-              <video id="applications_2_0" controls loop>
-                <source src="videos/real_conferenceroom/fipt_hdr/relight_0.mp4" type="video/mp4"/>
-              </video>
-              <video id="applications_2_1" controls loop>
-                <source src="videos/real_conferenceroom/fipt_hdr/relight_1.mp4" type="video/mp4"/>
-              </video>
-              <video id="applications_2_2" controls loop>
-                <source src="videos/real_conferenceroom/fipt_hdr/insert.mp4" type="video/mp4"/>
-              </video>
-              <video id="applications_2_3" controls loop>
-                <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/rgb_full.mp4" type="video/mp4"/>
-              </video>
-            </div>
-          </div>
-
-        </div>
-
-        <br/><br/>
-        <h3 id="moving_light" class="title is-4">
-          Comparisons with Moving Light Source
-          <span><a href="#results">&uarr;</a></span>
-        </h3>
-        <p>
-          We use
-          <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT(HDR)</a> as reference, which takes in HDR images as input.<br/>
-          Baseline FIPT*(LDR) takes LDR images and estimated emission masks as input.<br/>
-        </p>
-        <div class="column frame">
-          <div class="flex">
-            <div>
-              <div class="flex">
-                <div class="result">
-                  <p class="btncap">Synthetic (FIPT)</p>
-                  <button id="moving_light_scene0" value="synthetic_bedroom" class="on">Bedroom</button>
-                  <button id="moving_light_scene1" value="synthetic_bathroom">Bathroom</button>
-                  <p class="btncap">Real (FIPT)</p>
-                  <button id="moving_light_scene2" value="real_classroom">Classroom</button>
-                </div>
-                <div class="result">
-                  <p class="btncap">Methods (LDR input)</p>
-                  <button id="moving_light_method0" value="ours" class="on">Ours</button>
-                  <button id="moving_light_method1" value="fipt_ldr">FIPT*</button>
-                  <p class="btncap">Methods (HDR input)</p>
-                  <button id="moving_light_method2" value="fipt_hdr">FIPT</button>
-                </div>
-                <div class="result">
-                  <p class="btncap">Results</p>
-                  <button id="moving_light_result0" value="move" class="on">Relighting with Moving Light</button>
-                </div>
-              </div>
-              <!-- <div class="desc">
-                <p><b>Input Style and Input Images.</b> Select an input style, the input images are used to transfer texture to the target mesh.</p>
-                <p><b>Meshes.</b> We demonstrate image-guided texture transfer to diverse meshes from selected input images.</p>
-                <p><b>Baselines.</b> We compare our method with existing methods TEXTure [<a href="#reference">1</a>] and LatentPaint[<a href="#reference">2</a>], which can also synthesize textures for meshes given a few input images.</p>
-              </div> -->
-            </div>
-            <div>
-              <video id="moving_light_0_0" controls loop class="on">
-                <source src="videos/synthetic_bedroom/ours/move.mp4" type="video/mp4"/>
-              </video>
-              <video id="moving_light_1_0" controls loop>
-                <source src="videos/synthetic_bedroom/fipt_ldr/move.mp4" type="video/mp4"/>
-              </video>
-              <video id="moving_light_2_0" controls loop>
-                <source src="videos/synthetic_bedroom/fipt_hdr/move.mp4" type="video/mp4"/>
-              </video>
-            </div>
-          </div>
-
-        </div>
-
-        
-
-
-        <!-- <br/><br/>
-        <h3 id="crf" class="title is-4">
-          Camera Response Function (CRF) Estimation
-          <span><a href="#results">&uarr;</a></span>
-        </h3>
         <div class="column frame">
           <div class="content has-text-justified">
-            <p>
-              Given input images with varying exposure, IRIS estimates camera response function (CRF). We compare with 3 baselines:<br/>
-              - Mean CRF \(\bar{g}\): set CRF as constant mean curve of <a target="_blank" rel="noopener noreferrer" href="https://cave.cs.columbia.edu/repository/DoRF">empirical 201 CRFs</a> measured in real-world devices.<br/>
-              - Gamma \(1/2.2\): set CRF as simple function: \( g(x) = x^{1/2.2} \), which is used in <a target="_blank" rel="noopener noreferrer" href="https://jerrypiglet.github.io/fipt-ucsd/">FIPT</a><br/>
-              <font color="blue">Blue curve</font>: ground truth, <font color="red">Red curve</font>: estimation
-            </p>
+            <div class="flex">
+              <div>
+                <div class="flex">
+                  <div class="result">
+                    <p class="btncap">Real Scenes</p>
+                    <button id="intrinsics_scene0" value="real_conferenceroom" class="on">Conference Room</button>
+                    <button id="intrinsics_scene1" value="scannetpp_bathroom2">Bathroom</button>
+                    <!-- <button id="intrinsics_scene2" value="scannetpp_room2">Bedroom</button> -->
+                    <!-- <p class="btncap">Synthetic Scenes</p>
+                    <button id="intrinsics_scene0" value="synthetic_kitchen">Kitchen</button>
+                    <button id="intrinsics_scene1" value="synthetic_livingroom">Living Room</button>
+                    <button id="intrinsics_scene2" value="synthetic_bedroom">Bedroom</button>
+                    <button id="intrinsics_scene3" value="synthetic_bathroom">Bathroom</button> -->
+                    
+                  </div>
+                  <div class="result">
+                    <p class="btncap">Methods (LDR input)</p>
+                    <button id="intrinsics_method0" value="ours" class="on">IRIS (Ours)</button>
+                    <button id="intrinsics_method2" value="fipt_ldr">FIPT*</button>
+                    <p class="btncap">Methods (HDR input)</p>
+                    <button id="intrinsics_method1" value="fipt_hdr">FIPT</button>
+                  </div>
+                  <div class="result">
+                    <p class="btncap">Results</p>
+                    <button id="intrinsics_result0" value="intrinsics/kd" class="on">Diffuse Reflectance <b>k</b><sub><i>d</i></sub></button>
+                    <button id="intrinsics_result1" value="intrinsics/a_prime">Material Reflectance <b>a</b>&prime;</button>
+                    <button id="intrinsics_result2" value="intrinsics/roughness">Roughness <i>&sigma;</i></button>
+                    <button id="intrinsics_result3" value="intrinsics/metallic">Metallic <i>m</i></button>
+                    <button id="intrinsics_result4" value="intrinsics/emission">Tonemapped HDR Emission <b>L</b><sub><i>e</i></sub></button>
+                    <button id="intrinsics_result5" value="intrinsics/rgb_full">Rerendering <b>L</b></button>
+                  </div>
+                </div>
+                <!-- <div class="desc">
+                  <p><b>Input Style and Input Images.</b> Select an input style, the input images are used to transfer texture to the target mesh.</p>
+                  <p><b>Meshes.</b> We demonstrate image-guided texture transfer to diverse meshes from selected input images.</p>
+                  <p><b>Baselines.</b> We compare our method with existing methods TEXTure [<a href="#reference">1</a>] and LatentPaint[<a href="#reference">2</a>], which can also synthesize textures for meshes given a few input images.</p>
+                </div> -->
+              </div>
+              <div>
+                <video id="intrinsics_0_0" controls loop class="on">
+                  <source src="videos/real_conferenceroom/ours/intrinsics/kd.mp4" type="video/mp4"/>
+                </video>
+                <video id="intrinsics_0_1" controls loop>
+                  <source src="videos/real_conferenceroom/ours/intrinsics/a_prime.mp4" type="video/mp4"/>
+                </video>
+                <video id="intrinsics_0_2" controls loop>
+                  <source src="videos/real_conferenceroom/ours/intrinsics/roughness.mp4" type="video/mp4"/>
+                </video>
+                <video id="intrinsics_0_3" controls loop>
+                  <source src="videos/real_conferenceroom/ours/intrinsics/metallic.mp4" type="video/mp4"/>
+                </video>
+                <video id="intrinsics_0_4" controls loop>
+                  <source src="videos/real_conferenceroom/ours/intrinsics/emission.mp4" type="video/mp4"/>
+                </video>
+                <video id="intrinsics_0_5" controls loop>
+                  <source src="videos/real_conferenceroom/ours/intrinsics/rgb_full.mp4" type="video/mp4"/>
+                </video>
+                <video id="intrinsics_1_0" controls loop>
+                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/kd.mp4" type="video/mp4"/>
+                </video>
+                <video id="intrinsics_1_1" controls loop>
+                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/a_prime.mp4" type="video/mp4"/>
+                </video>
+                <video id="intrinsics_1_2" controls loop>
+                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/roughness.mp4" type="video/mp4"/>
+                </video>
+                <video id="intrinsics_1_3" controls loop>
+                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/metallic.mp4" type="video/mp4"/>
+                </video>
+                <video id="intrinsics_1_4" controls loop>
+                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/emission.mp4" type="video/mp4"/>
+                </video>
+                <video id="intrinsics_1_5" controls loop>
+                  <source src="videos/real_conferenceroom/fipt_hdr/intrinsics/rgb_full.mp4" type="video/mp4"/>
+                </video>
+                <video id="intrinsics_2_0" controls loop>
+                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/kd.mp4" type="video/mp4"/>
+                </video>
+                <video id="intrinsics_2_1" controls loop>
+                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/a_prime.mp4" type="video/mp4"/>
+                </video>
+                <video id="intrinsics_2_2" controls loop>
+                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/roughness.mp4" type="video/mp4"/>
+                </video>
+                <video id="intrinsics_2_3" controls loop>
+                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/metallic.mp4" type="video/mp4"/>
+                </video>
+                <video id="intrinsics_2_4" controls loop>
+                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/emission.mp4" type="video/mp4"/>
+                </video>
+                <video id="intrinsics_2_5" controls loop>
+                  <source src="videos/real_conferenceroom/fipt_ldr/intrinsics/rgb_full.mp4" type="video/mp4"/>
+                </video>
+              </div>
+            </div>
           </div>
-          <div class="content has-text-centered">
-            <img src="images/figures/crf_input.png">
-          </div>
-        </div> -->
-        
-
+        </div>
       </div>
     </div>
   </div>
@@ -1455,19 +1268,33 @@
 
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Method</h2>
+        <h3 class="title is-4">
+          Framework Overview
+          <span><a href="#results">&uarr;</a></span>
+        </h3>
         <img src="images/figures/framework.png">
         <p>
-          Given multi-view posed LDR images and a surface mesh, our inverse rendering pipeline is divided into two main stages.
+          Given multi-view posed LDR images, our inverse rendering pipeline is divided into two main stages.
           In the initialization stage, we initialize the BRDF, extract a surface light field, and estimate emitter geometry.
           In the optimization stage, we first recover HDR radiance from the LDR input, then bake shading maps, and jointly optimize BRDF and CRF parameters.
           These three steps are repeated until convergence.
+        </p>
+
+        <br/><br/>
+        <h3 id="References" class="title is-4">
+          References
+          <span><a href="#results">&uarr;</a></span>
+        </h3>
+        <p>
+          Wu, Liwen, et al. "Factorized inverse path tracing for efficient and accurate material-lighting estimation." ICCV, 2023.<br/>
+          Yao, Yao, et al. "NeILF: Neural incident light field for physically-based material estimation." ECCV, 2022.<br/>
+          Zhu, Jingsen, et al. "I^2-SDF: Intrinsic indoor scene reconstruction and editing via raytracing in neural sdfs." CVPR, 2023.<br/>
+          Li, Zhengqin, et al. "Physically-based editing of indoor scene lighting from a single image." ECCV, 2022.<br/>
         </p>
       </div>
     </div>
   </div>
 </section>
-
 
 <section class="section">
   <div class="container is-max-desktop">
@@ -1530,7 +1357,6 @@
   </div>
 </section> -->
 
-
 <footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
@@ -1548,6 +1374,7 @@
     </div>
   </div>
 </footer>
+
 
 </body>
 </html>
